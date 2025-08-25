@@ -1,0 +1,85 @@
+body{
+    margin: 0
+}
+.nav{
+background-color: #FF961F;
+box-shadow: 0 5px 6px rgba(0, 0, 0, 0.15);
+color: rgb(0, 0, 0);
+display: flex;
+justify-content: space-between;
+align-items: center;
+gap: 2rem;
+padding: 0 1rem;
+align-items: stretch;
+
+}
+
+.nav ul{
+    
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    font-size: 2rem;
+    
+}
+
+.site-title{
+    font-size: 3rem;
+}
+.nav a{
+    
+    color: inherit;
+    text-decoration: none;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: .25rem;
+
+
+}
+
+.nav li.active{
+    background-color: #FF8D0A;
+
+}
+.nav li:hover{
+    background-color: #FFA033;  
+    box-shadow: 5px 5px 6px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px); 
+
+}
+
+body{
+    background-color: #D6D1CD;
+
+  
+    text-align: center;
+} 
+
+.my-button{
+    background-color: #FF8D0A;
+    color: black;
+    height: 5rem;
+    width: 15rem;
+    flex-direction: column;
+    border-radius: 10px;
+    font-size: 24px;
+
+
+
+}
+.my-button:hover{
+
+    background-color: #FFA033;  
+
+}
+
+.button-container{ 
+    font-family: "Segoe UI", sans-serif;
+    display: flex;
+    gap: 3rem;
+    flex-direction: column;
+    align-items: center;
+}
