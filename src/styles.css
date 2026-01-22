@@ -9,11 +9,26 @@
 body{
     background-color: #ffffff;
     margin: 0;
-  
     text-align: center;
+    
 } 
 
-
+.pageC {
+  min-height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  
+}
+.pageH {
+  min-height: 55vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  
+}
 
 .button-container{ 
     font-family: "Segoe UI", sans-serif;
@@ -21,11 +36,11 @@ body{
     gap: 3rem;
     flex-direction: column;
     align-items: center;
-
     padding: 10px 20px;
     width: fit-content;
     margin: 0 auto;
     background-color: #ffffff;
+  
 }
 .my-button{
     background-color: #ffa500;
@@ -47,17 +62,21 @@ body{
     width: fit-content;
     margin:4rem auto;
     border: 2px solid black;
+    border-collapse: collapse;
+
+    
 }
 .workout-table td{
     font-size: larger;
     font-weight: bold;
     padding: 10px;
-    
+   
 }
 .workout-table th{
     font-size: x-large;
     font-weight: bold;
     padding: 10px;
+    
     
 }
 
@@ -91,4 +110,89 @@ body{
 }
 .workout-table th:nth-child(even){
     background-color: rgb(220, 215, 215);;
+}
+
+.addWorkoutTable{
+    width: fit-content;
+    margin:4rem auto;
+    border: 2px solid black;
+    border-collapse: collapse;
+}
+
+
+.addWorkoutTable th{
+    font-size: x-large;
+    font-weight: bold;
+    padding: 10px;
+    border-bottom: 2px solid black;
+    border-top: 2px solid black;
+
+
+}
+
+.addWorkoutTable td{
+    font-size: larger;
+    font-weight: bold;
+    padding: 10px;
+    
+
+
+    
+}
+
+.addWorkoutTable th:nth-child(odd){
+    background-color: rgb(246, 140, 42);
+}
+.addWorkoutTable th:nth-child(even){
+    background-color: rgb(220, 215, 215);;
+}
+
+.addWorkoutTable td:nth-child(even){
+    background-color: rgb(241, 234, 234);
+}
+.addWorkoutTable td:nth-child(odd){
+    background-color: rgb(247, 171, 66);
+}
+
+th.spanrow{
+    
+    background-color: ghostwhite !important;
+  
+   
+
+    
+    
+}
+
+
+.display-workouts{
+  
+   
+    width: fit-content;
+    margin: 0 auto;  
+   
+    box-sizing: border-box;
+    
+
+}
+
+.display-workout {
+    width: 100%;
+    max-width: inherit;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    background-color: ghostwhite;
+    font-size: larger;
+    font-weight: bold;
+   
+}
+
+.display-workout:hover{
+
+    background-color: silver;
+    transform: scale(1.03);          
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  
+    
+
 }

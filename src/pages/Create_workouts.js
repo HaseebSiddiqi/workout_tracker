@@ -5,7 +5,8 @@ export default function Create_workouts(){
     const [workouts, setWorkouts] = useState(()=>{
         const savedWorkouts = localStorage.getItem("workouts");
         return savedWorkouts ? JSON.parse(savedWorkouts) : [];
-    }); // workouts holds each new workout and setWorkouts is a update function to update workouts
+    }); // workouts holds each new workout and setWorkouts is a update function to update workouts but if
+        // There are workouts saved  in local storage then it will display those workouts
     
     
 
@@ -39,30 +40,35 @@ export default function Create_workouts(){
   
     return(
         <>
+
+
+            <div className="pageC"> 
+
+                <div className="button-container">
+                    <button className = "my-button" onClick={newWorkout}>Create Workout</button>
+
+                </div>
             
-            <h1>Create Workouts</h1>
-            <button onClick={newWorkout}>Create Workout</button>
-            <table className="workout-table">
-                
-                    
-                
-                <tbody>
-                    <tr>
-                        <th>Workout</th>
-                        <th>Exercises</th>
-                        <th>Delete</th>
-                    </tr>
-                    {workouts.map((workout,i) => (
-                        <tr key = {i}>
-                            <td>{workout.name}</td>
-                            <td>{workout.exercises.join(" | ")}</td>
-                            <td>
-                                <button onClick={() => deleteWorkout(i)}> ❌ </button>
-                                </td>
+                <table className="workout-table">
+                    <tbody>
+                        <tr>
+                            <th>Workouts</th>
+                            <th>Exercises</th>
+                            <th>Delete</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                        {workouts.map((workout,i) => (
+                            <tr key = {i}>
+                                <td>{workout.name}</td>
+                                <td>{workout.exercises.join(" | ")}</td>
+                                <td>
+                                    <button onClick={() => deleteWorkout(i)}> ❌ </button>
+                                    </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+           
         </>
     );
 }
