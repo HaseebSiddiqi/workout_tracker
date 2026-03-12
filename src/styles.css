@@ -43,18 +43,19 @@ body{
   
 }
 .my-button{
-    background-color: #ffa500;
+    background-color: var(--primary);
     font-weight: bold;
-    color: black;
+    color: rgb(255, 255, 255);
     height: 5rem;
     width: 15rem;
     flex-direction: column;
-    border-radius: 10px;
+    border-radius: 20px;
+    border: 2px solid black;
     font-size: 24px;
 }
 .my-button:hover{
 
-    background-color: #ffb733;  
+    background-color: var(--primary-hover);  
 
 }
 
@@ -63,7 +64,7 @@ body{
     margin:4rem auto;
     border: 2px solid black;
     border-collapse: collapse;
-
+    color: black;
     
 }
 .workout-table td{
@@ -76,15 +77,16 @@ body{
     font-size: x-large;
     font-weight: bold;
     padding: 10px;
+    color: black;
     
     
 }
 
 .workout-table td:nth-child(even){
-    background-color: rgb(241, 234, 234);
+    background-color: var(--table-row2);
 }
 .workout-table td:nth-child(odd){
-    background-color: rgb(247, 171, 66);
+    background-color: var(--table-row1);
 }
 .workout-table td:last-child{
    padding: 0;
@@ -97,7 +99,7 @@ body{
     height: 100%;
     background-color: transparent; 
     cursor: pointer;
-    padding: 10px;
+    padding: 13px;
 }
 .workout-table td button:hover{
    
@@ -106,12 +108,13 @@ body{
 
 
 .workout-table th:nth-child(odd){
-    background-color: rgb(246, 140, 42);
+    background-color: var(--header-primary);
 }
 .workout-table th:nth-child(even){
-    background-color: rgb(220, 215, 215);;
+    background-color: var(--header-secondary);
 }
 
+/* Add Workouts page css */
 .addWorkoutTable{
     width: fit-content;
     margin:4rem auto;
@@ -123,54 +126,137 @@ body{
 .addWorkoutTable th{
     font-size: x-large;
     font-weight: bold;
-    padding: 10px;
     border-bottom: 2px solid black;
     border-top: 2px solid black;
+    padding: 10px;
 
 
 }
+.addWorkoutTable th button {
+  width: 100%;
+  height: 100%;
+  border: none;
+  font-size: x-large;
+  font-weight: bold;
+  padding: 10px;
+   
+}
+
+
 
 .addWorkoutTable td{
     font-size: larger;
     font-weight: bold;
-    padding: 10px;
-    
+    width: 150px;
+    height: 30px;
+    padding: 0;
+    margin: 0;
 
 
     
 }
 
 .addWorkoutTable th:nth-child(odd){
-    background-color: rgb(246, 140, 42);
+    background-color: var(--header-primary)
 }
 .addWorkoutTable th:nth-child(even){
-    background-color: rgb(220, 215, 215);;
+    background-color: var(--header-secondary);
 }
 
 .addWorkoutTable td:nth-child(even){
-    background-color: rgb(241, 234, 234);
+    background-color: var(--table-row2);
+    padding: 0;
 }
 .addWorkoutTable td:nth-child(odd){
-    background-color: rgb(247, 171, 66);
+    background-color: var(--table-row1);
 }
+
+.addWorkoutTable td button{
+    
+    border: none;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: transparent; 
+    cursor: pointer;
+   
+
+}
+
+.addWorkoutTable td button:hover{
+    background-color: rgba(0, 0, 0, 0.08);
+}
+
+
+
+
+.addWorkoutTable td input  {
+    display: block;
+    background: transparent;
+    border: none;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-size: large;
+    text-align: center;
+    font-weight: bold;
+ 
+    
+    
+}
+
+.addWorkoutTable td input:hover  {
+
+
+    cursor: pointer;
+    filter: brightness(0.94); 
+    transition: filter 0.3s; 
+    background-color: rgba(0, 0, 0, 0.08);
+ 
+ 
+    
+    
+}
+
+
+
+
+
 
 th.spanrow{
     
     background-color: ghostwhite !important;
-  
+    
    
 
     
     
 }
 
+table .spanrow2{
+    
+    background-color: ghostwhite !important;
+    padding: 0%;
+     
+    
+}
+
+th.spanrow2 button:hover{
+    background-color: rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+}
+
+
+
+
+
 
 .display-workouts{
   
-   
     width: fit-content;
-    margin: 0 auto;  
-   
+    margin: 0 auto;   
     box-sizing: border-box;
     
 
@@ -195,4 +281,125 @@ th.spanrow{
   
     
 
+}
+
+
+input[type="date"]{
+ 
+    border: none;
+    font-family: inherit;
+    font-size: larger;
+    font-weight: bold;
+    background-color: transparent;
+    padding: 0%;
+    width: 180px;
+    
+}
+
+input[type="date"]:focus {
+    outline: none;
+}
+
+.react-calendar{
+    width: 1000px;
+    margin: 0 auto;
+    font-size:x-large;
+    font-weight: bolder;
+    
+}
+
+.react-calendar__tile{
+    background-color: var(--primary);
+    height: 140px;
+    font-size: x-large;
+    font-weight: bolder;
+    color: white;
+    border: 2px solid white ;
+    border-radius: 15px;
+    
+}
+.react-calendar__month-view__weekdays__weekday abbr {
+    text-decoration: none !important;
+    
+}
+.react-calendar__month-view__days__day--neighboringMonth{
+    opacity: 0.75;
+}
+.react-calendar__tile:hover{
+    background-color: var(--primary-hover);
+
+    
+}
+.react-calendar__navigation button:first-child {
+    display: none;
+}
+.react-calendar__navigation button:last-child {
+    display: none;
+}
+.react-calendar__navigation{
+    margin: 0 auto;
+    width: 1000px;
+    padding: 10px, 100px;
+}
+.react-calendar__navigation__label {
+    background-color: transparent;
+    color: rgb(0, 0, 0);
+    font-size: x-large;
+    font-weight: bolder;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+.react-calendar__navigation__arrow {
+    background-color: transparent;
+    color: rgb(0, 0, 0);
+    font-size: x-large;
+    font-weight: bolder;
+    border: none;
+
+    cursor: pointer;
+}
+
+.workout-day {
+    background-color: var(--secondary);  
+    color: white;               /* text color */
+    font-weight: bold;
+    border-radius: 15px;
+}
+
+.workout-day:hover {
+    background-color: var(--secondary-hover);  
+  
+}
+.back{
+    border: 2px solid black;
+    border-radius: 20px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 15px;
+    padding-right: 15px;
+
+    color: white;
+    font-size: large;
+    font-weight: bold;
+    background-color: var(--secondary);
+}
+.back:hover{
+    background-color: var(--secondary-hover);
+}
+:root{
+    /* main accent colors */
+    --primary: #fc9814;
+    --primary-hover: #ffb347;
+
+    --secondary: #2aa7e0;
+    --secondary-hover: #6cc4ee;
+
+    /* table row colors (subtle but more professional) */
+    --table-row1: #fbe1cb;   /* very light orange tint */
+    --table-row2: #c4e3f4;   /* very light blue tint */
+
+    /* table header colors (between rows and accent colors) */
+    --header-primary: #f3ad50;  /* soft orange for headers */
+    --header-secondary: #4cb8fb;/* soft blue for headers */
 }

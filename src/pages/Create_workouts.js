@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
+
 export default function Create_workouts(){
    
 
     const [workouts, setWorkouts] = useState(()=>{
-        const savedWorkouts = localStorage.getItem("workouts");
-        return savedWorkouts ? JSON.parse(savedWorkouts) : [];
+        const savedTemplates = localStorage.getItem("templates");
+        return savedTemplates ? JSON.parse(savedTemplates) : [];
     }); // workouts holds each new workout and setWorkouts is a update function to update workouts but if
         // There are workouts saved  in local storage then it will display those workouts
     
@@ -26,7 +28,7 @@ export default function Create_workouts(){
 
         setWorkouts(updatedWorkouts);
         localStorage.setItem(
-            "workouts",
+            "templates",
             JSON.stringify(updatedWorkouts)
         );
         
@@ -35,7 +37,7 @@ export default function Create_workouts(){
     const deleteWorkout = (index) => {
             const updatedWorkouts =workouts.filter((_, i) => i !== index);
             setWorkouts(updatedWorkouts);
-            localStorage.setItem("workouts", JSON.stringify(updatedWorkouts));
+            localStorage.setItem("templates", JSON.stringify(updatedWorkouts));
         }
   
     return(
@@ -48,7 +50,7 @@ export default function Create_workouts(){
                     <button className = "my-button" onClick={newWorkout}>Create Workout</button>
 
                 </div>
-            
+                {workouts. length > 0 && ( 
                 <table className="workout-table">
                     <tbody>
                         <tr>
@@ -67,8 +69,11 @@ export default function Create_workouts(){
                         ))}
                     </tbody>
                 </table>
+                )}
             </div>
-           
+            <Link to="/home">
+            <button className='back'>Back</button>
+            </Link>
         </>
     );
 }

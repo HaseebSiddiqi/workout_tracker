@@ -1,27 +1,69 @@
 import Header from '../components/Header'
 import { useState } from 'react';
-const savedWorkouts = JSON.parse(localStorage.getItem("workouts")) || [];
+import { Link } from "react-router-dom";
+
 
 
 export default function Add_workouts(){
-    const [selectedWorkout, setSelectedWorkout] = useState(null);
+    const savedTemplates = JSON.parse(localStorage.getItem("templates")) || [];
 
-    const handleClick = (workout) =>{
-        setSelectedWorkout(workout);
-        console.log("Workout clicked:", workout);
-        console.log("Type of exercises:", typeof workout.exercises);
-       
-    }
+    const [newWorkout, setNewWorkout] = useState(null);
+
+    const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
+
+    const [feedback, setFeedback] =useState("");
     
-    const newWorkout ={
-        name: selectedWorkout?.name,
-        exercises: selectedWorkout?.exercises.map(e =>({
-            name: e,
-            weight: 0,
-            reps: [0,0,0]
-        }))
+    const handleClick = (selectWorkout) => {
+            setFeedback("")
+            setNewWorkout ({
+                name: selectWorkout?.name,
+                exercises: selectWorkout?.exercises.map(e =>({
+                    name: e,
+                    weight: 0,
+                    reps: [0,0,0]
+                }))
+            });
+        }
+   
+    const updateWeight =(index, value) =>{
 
+        setNewWorkout(prev => ({
+            ...prev,
+            exercises: prev.exercises.map((ex, i) =>
+            i === index ? { ...ex, weight: value } : ex
+            )
+        }));
     };
+
+    const updateReps = (index, repIndex, value) =>{
+
+        setNewWorkout(prev => ({
+            ...prev,
+            exercises: prev.exercises.map((ex, i) =>
+            i === index ? { ...ex, reps: ex.reps.map((r,j) =>(j === repIndex ? value :r)) } 
+            : ex
+            )
+        }));
+    };
+    
+    
+
+   
+    const addWorkout =() =>{
+        const saveCurrent ={
+            date: date,
+            name: newWorkout.name, 
+            exercises: newWorkout.exercises
+            
+        };
+
+        const workouts = JSON.parse(localStorage.getItem("workouts")) || [];
+        const updatedWorkouts = [...workouts, saveCurrent];
+        localStorage.setItem("workouts", JSON.stringify(updatedWorkouts));
+        setNewWorkout(null);
+
+        setFeedback("Workout Added!")
+    }
     return(
         <>
             
@@ -30,20 +72,20 @@ export default function Add_workouts(){
             <div className='display-workouts'> 
                  <h2>Select a workout</h2>
                  
-                 {savedWorkouts.map((workout, i) => (
-                <div className='display-workout' key ={i} onClick={() => handleClick(workout)}>
-                    {workout.name}</div>
+                 {savedTemplates.map((selectWorkout, i) => (
+                <div className='display-workout' key ={i} onClick={() => handleClick(selectWorkout)}>
+                    {selectWorkout.name}</div>
             ))}
 
             </div>
             
          
-            {selectedWorkout && (
+            {newWorkout && (
             <table className="addWorkoutTable" >
                 
                 <tbody>
                     <tr>
-                        <th className ="spanrow" colSpan={5}>Date: {new Date().toLocaleDateString()}</th>
+                        <th className ="spanrow" colSpan={6}><input type="date" value={date} onChange={(e)=> setDate(e.target.value)}/></th>
                     </tr>
                     <tr>
                         <th> {newWorkout.name || "Exercise Name"}</th>
@@ -57,24 +99,29 @@ export default function Add_workouts(){
 
                         
                         <tr key= {i}>
-                            <td>    {exercise.name}     </td>
-                            <td>    {exercise.weight}   </td>
-                            <td>    {exercise.reps[0]}  </td>
-                            <td>    {exercise.reps[1]}  </td>
-                            <td>    {exercise.reps[2]}  </td>
-                    
-                    
+                            <td>    {exercise.name}      </td>
+                            <td>    <input type= "text" value = {exercise.weight} onChange={e => updateWeight(i, Number(e.target.value))}/></td>
+                            <td>    <input type= "text" value = {exercise.reps[0]} onChange={e => updateReps(i, 0, Number(e.target.value))}/></td>
+                            <td>    <input type= "text" value = {exercise.reps[1]} onChange={e => updateReps(i, 1, Number(e.target.value))}/></td>
+                            <td>    <input type= "text" value = {exercise.reps[2]} onChange={e => updateReps(i, 2, Number(e.target.value))}/></td>
                         </tr>
                         
                     ))}
                     <tr> 
-                        <th className ="spanrow" colSpan={5}>Add Workout</th> 
+                        <th className='spanrow2' colSpan={6}><button onClick={addWorkout}> Add Workout </button></th> 
                     </tr>
                     
                 </tbody>
             </table>
             )}
+
+            {feedback &&<p>{feedback}</p>}
+      
             </div>
+            <Link to="/home">
+            <button className='back' >Back</button>
+            </Link>
         </>
     )
 }
+
