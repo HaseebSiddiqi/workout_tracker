@@ -42,15 +42,14 @@ export default function Create_workouts(){
   
     return(
         <>
-
-
             <div className="pageC"> 
 
                 <div className="button-container">
                     <button className = "my-button" onClick={newWorkout}>Create Workout</button>
 
                 </div>
-                {workouts. length > 0 && ( 
+                <div className="table-container"> 
+                {workouts.length > 0 && ( 
                 <table className="workout-table">
                     <tbody>
                         <tr>
@@ -64,16 +63,19 @@ export default function Create_workouts(){
                                 <td>{workout.exercises.join(" | ")}</td>
                                 <td>
                                     <button onClick={() => deleteWorkout(i)}> ❌ </button>
-                                    </td>
+                                </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
                 )}
+                </div>
             </div>
+           
             <Link to="/home">
             <button className='back'>Back</button>
             </Link>
+            
         </>
     );
 }

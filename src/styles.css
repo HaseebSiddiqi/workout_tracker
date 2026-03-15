@@ -65,12 +65,14 @@ body{
     border: 2px solid black;
     border-collapse: collapse;
     color: black;
+    text-align: center;
     
 }
 .workout-table td{
     font-size: larger;
     font-weight: bold;
     padding: 10px;
+    text-align: center;
    
 }
 .workout-table th{
@@ -78,6 +80,7 @@ body{
     font-weight: bold;
     padding: 10px;
     color: black;
+    text-align: center;
     
     
 }
@@ -228,12 +231,20 @@ body{
 th.spanrow{
     
     background-color: ghostwhite !important;
-    
+    font-size: xx-large;
+    padding: 5px;
    
 
     
     
 }
+.spanrow input[type="date"] {
+  cursor: pointer;
+  
+}input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+}
+
 
 table .spanrow2{
     
@@ -301,16 +312,18 @@ input[type="date"]:focus {
 }
 
 .react-calendar{
-    width: 1000px;
+    width: 650px;
     margin: 0 auto;
     font-size:x-large;
     font-weight: bolder;
+    padding: 10px;
     
 }
 
 .react-calendar__tile{
     background-color: var(--primary);
-    height: 140px;
+    aspect-ratio: 1/1;
+    
     font-size: x-large;
     font-weight: bolder;
     color: white;
@@ -323,7 +336,7 @@ input[type="date"]:focus {
     
 }
 .react-calendar__month-view__days__day--neighboringMonth{
-    opacity: 0.75;
+    opacity: 0.65;
 }
 .react-calendar__tile:hover{
     background-color: var(--primary-hover);
@@ -338,7 +351,7 @@ input[type="date"]:focus {
 }
 .react-calendar__navigation{
     margin: 0 auto;
-    width: 1000px;
+    width: 650px;
     padding: 10px, 100px;
 }
 .react-calendar__navigation__label {
@@ -362,7 +375,7 @@ input[type="date"]:focus {
 
 .workout-day {
     background-color: var(--secondary);  
-    color: white;               /* text color */
+    color: white;               
     font-weight: bold;
     border-radius: 15px;
 }
@@ -378,7 +391,7 @@ input[type="date"]:focus {
     padding-bottom: 8px;
     padding-left: 15px;
     padding-right: 15px;
-
+    
     color: white;
     font-size: large;
     font-weight: bold;
@@ -388,18 +401,105 @@ input[type="date"]:focus {
     background-color: var(--secondary-hover);
 }
 :root{
-    /* main accent colors */
+    
     --primary: #fc9814;
     --primary-hover: #ffb347;
 
     --secondary: #2aa7e0;
     --secondary-hover: #6cc4ee;
 
-    /* table row colors (subtle but more professional) */
-    --table-row1: #fbe1cb;   /* very light orange tint */
-    --table-row2: #c4e3f4;   /* very light blue tint */
 
-    /* table header colors (between rows and accent colors) */
-    --header-primary: #f3ad50;  /* soft orange for headers */
-    --header-secondary: #4cb8fb;/* soft blue for headers */
+    --table-row1: #fbe1cb;   
+    --table-row2: #c4e3f4;   
+
+
+    --header-primary: #f3ad50; 
+    --header-secondary: #4cb8fb;
+}
+
+
+.table-container {
+  width: 95%;          /* almost full width but leaves some space on sides */
+  margin: 0 auto;      /* center horizontally */
+  overflow-x: auto;    /* allows horizontal scroll if needed */
+}
+
+@media (max-width: 600px) {
+  /* Table headers */
+  .workout-table th,
+  .addWorkoutTable th {
+    font-size: 1rem;   /* slightly larger than cells */
+   
+  }
+  .addWorkoutTable th.spanrow {
+    font-size: 1.2rem;   /* slightly larger than cells */
+    padding: 6px 8px;
+  }
+  /* Table cells */
+  .workout-table td,
+  .addWorkoutTable td {
+    font-size: 0.8rem;   /* smaller than headers */
+    padding: 2px 8px;
+  }
+
+   .addWorkoutTable th button {
+    font-size: 1rem;   /* slightly larger than cells */
+    
+  }
+
+  /* Calendar */
+  .react-calendar {
+    width: 100%;           /* fills container width */
+    font-size: 0.85rem;
+
+    margin: 0 auto;        /* center the calendar */
+  }
+
+    .react-calendar__navigation {
+    display: inline-flex;       /* keep label and arrows together */
+    align-items: center;        /* vertically align */
+    justify-content: center;    /* center the group */
+    gap: 0.5rem;                /* space between arrows and label */
+    margin: 0 auto;             /* center the whole navigation */
+    padding: 1 rem 0;
+    width: auto;                /* shrink to fit content */
+    }
+
+    /* Month/year label */
+    .react-calendar__navigation__label {
+    font-size: 1.2rem;
+    font-weight: bolder;
+    text-align: center;
+    flex-grow: 0;              
+    }
+
+    /* Arrows */
+    .react-calendar__navigation__arrow {
+    font-size: 1.2rem;
+    cursor: pointer;
+    }
+
+
+  /* Inputs */
+  input[type="date"] {
+    font-size: 1.2rem;
+    width: 34%;
+    padding: 4px;
+  }
+
+  input[type="number"] {
+    font-size: 0.9rem;
+    width: 30%;
+  }
+}
+
+.calendar-container {
+  width: 95%;
+  max-width: 650px;        /* optional max width */
+  margin: 2rem auto;
+  display: flex;
+  justify-content: center;  /* perfectly centers calendar */
+  overflow-x: hidden;
+  box-sizing: border-box;
+  padding: 0;               /* remove asymmetric padding */
 }

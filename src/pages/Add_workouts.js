@@ -1,4 +1,4 @@
-import Header from '../components/Header'
+
 import { useState } from 'react';
 import { Link } from "react-router-dom";
 
@@ -79,13 +79,13 @@ export default function Add_workouts(){
 
             </div>
             
-         
+            <div className='table-container'> 
             {newWorkout && (
             <table className="addWorkoutTable" >
                 
                 <tbody>
                     <tr>
-                        <th className ="spanrow" colSpan={6}><input type="date" value={date} onChange={(e)=> setDate(e.target.value)}/></th>
+                        <th className ="spanrow2" colSpan={5}><input type="date" value={date} onChange={(e)=> setDate(e.target.value)}/></th>
                     </tr>
                     <tr>
                         <th> {newWorkout.name || "Exercise Name"}</th>
@@ -100,21 +100,21 @@ export default function Add_workouts(){
                         
                         <tr key= {i}>
                             <td>    {exercise.name}      </td>
-                            <td>    <input type= "text" value = {exercise.weight} onChange={e => updateWeight(i, Number(e.target.value))}/></td>
-                            <td>    <input type= "text" value = {exercise.reps[0]} onChange={e => updateReps(i, 0, Number(e.target.value))}/></td>
-                            <td>    <input type= "text" value = {exercise.reps[1]} onChange={e => updateReps(i, 1, Number(e.target.value))}/></td>
-                            <td>    <input type= "text" value = {exercise.reps[2]} onChange={e => updateReps(i, 2, Number(e.target.value))}/></td>
+                            <td>    <input type= "number" inputMode="numeric" min="0" step="1" value = {exercise.weight} onChange={e => updateWeight(i, Number(e.target.value))}/></td>
+                            <td>    <input type= "number" inputMode="numeric" min="0" step="1" value = {exercise.reps[0]} onChange={e => updateReps(i, 0, Number(e.target.value))}/></td>
+                            <td>    <input type= "number" inputMode="numeric" min="0" step="1" value = {exercise.reps[1]} onChange={e => updateReps(i, 1, Number(e.target.value))}/></td>
+                            <td>    <input type= "number" inputMode="numeric" min="0" step="1" value = {exercise.reps[2]} onChange={e => updateReps(i, 2, Number(e.target.value))}/></td>
                         </tr>
                         
                     ))}
                     <tr> 
-                        <th className='spanrow2' colSpan={6}><button onClick={addWorkout}> Add Workout </button></th> 
+                        <th className='spanrow2' colSpan={5}><button onClick={addWorkout}> Add Workout </button></th> 
                     </tr>
                     
                 </tbody>
             </table>
             )}
-
+            </div>
             {feedback &&<p>{feedback}</p>}
       
             </div>
