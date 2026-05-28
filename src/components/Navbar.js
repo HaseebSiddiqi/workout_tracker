@@ -1,28 +1,31 @@
 
-import { Link, useMatch, useResolvedPath } from "react-router-dom"
+import { Link } from "react-router-dom"
 
-export default function Navbar() {
+export default function Navbar({handleSignOut, setActiveComponent, username}) {
     return (
         <nav className="nav">
-            <Link to="/" className="site-title">Site Name</Link>
-            <ul>
-                  <CustomLink to="/home">Home</CustomLink>
-                  <CustomLink to="/Add_workouts">Add Workouts</CustomLink>
-                  <CustomLink to="/Create_workouts">Create Workouts</CustomLink>
+            <Link to="/" className="site-title">MUSCLE UP</Link>
+                
+                <p> Welcome {username} </p>
+                
+                <button onClick={() => setActiveComponent("create")}>
+                    Create Workouts
+                </button>
+
+                <button onClick={() => setActiveComponent("add")}>
+                    Add Workouts
+                </button>
+                <button onClick={() => setActiveComponent("home")}>
+                    View Workouts
+                </button>
+                
+                <button  onClick={handleSignOut}>
+                   Sign Out
+               </button>
                
-           </ul>
+           
     </nav>
     )
 }
 
-function CustomLink({to, children, ...props}){
-   const resolvedPath = useResolvedPath (to)
-   const isActive = useMatch({ path: resolvedPath.pathname, end: true})
-    return(
-        <li className={isActive ? "active" : ""}>
-            <Link to ={to} {...props}>
-             {children}
-            </Link>
-        </li>
-    )
-}
+

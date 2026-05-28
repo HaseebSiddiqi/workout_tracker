@@ -1,9 +1,21 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { signOut } from "aws-amplify/auth";
 import { getCurrentUser } from 'aws-amplify/auth';
 import { useEffect, useState } from "react";
+
+import Navbar from "../components/Navbar";
+import CreateWorkouts from "../components/CreateWorkouts";
+import AddWorkouts from "../components/AddWorkouts";
+import ViewWorkouts from "../components/ViewWorkouts";
+
+
 export default function Home() {
-    const navigate = useNavigate();
+    const navigate = useNavigate()
+
+    const [username, setUsername] = useState('');
+
+
+    const [activeComponent, setActiveComponent] = useState("home");;
 
     const handleSignOut = async () => {
         try {
@@ -13,7 +25,7 @@ export default function Home() {
             console.error('Error signing out', err);
         }
     };
-    const [username, setUsername] = useState('');
+
     useEffect(() => {
         const fetchUser = async () => {
             try {
@@ -27,30 +39,32 @@ export default function Home() {
 
     }, []);
 
+    useEffect(() => {
+        fetch("http://localhost:5000/")
+            .then(res => res.text())
+            .then(data => console.log(data))
+            .catch(err => console.error(err));
+    }, []);
+
     return (
+        <> 
+        <Navbar 
+            username = {username}
+            setActiveComponent={setActiveComponent}
+            handleSignOut ={handleSignOut}>
+        </Navbar>
+     
+
         <div className="pageH">
+            {activeComponent === "home" && <ViewWorkouts username = {username} />}
+            {activeComponent === "create" && <CreateWorkouts username = {username} />}
 
-            <h1>Home Page welcome {username}</h1>
+            {activeComponent === "add" && <AddWorkouts username = {username} />}
+        
+            
 
-            <div className="button-container">
-
-                <Link to="/Create_workouts">
-                    <button className='my-button'>Create Workout</button>
-                </Link>
-
-                <Link to="/Add_workouts">
-                    <button className='my-button'>Add Workout</button>
-                </Link>
-
-                <Link to="/View_workouts">
-                    <button className='my-button'>View Workouts</button>
-                </Link>
-
-                <button className="my-button" onClick={handleSignOut}>
-                    Sign Out
-                </button>
-
-            </div>
+           
         </div>
+        </>
     );
 }

@@ -1,8 +1,20 @@
-.site-title {
-    font-size: 3rem;
+/* Theme variables */
+:root {
+    --bg-main: #f8fafc;
+    --text-main: #0f172a;
+    --primary: #f97316;
+    --primary-hover: #ea580c;
+    --secondary: #0ea5e9;
+    --secondary-hover: #0284c7;
+    --header-text: #ffffff;
+    --table-row1: #ffffff;
+    --table-row2: #f0f9ff;
+    --drop-shadow: 0 10px 25px -5px rgba(14, 165, 233, 0.15), 0 8px 10px -6px rgba(249, 115, 22, 0.1);
+    --header-primary: #ea580c;
+    --header-secondary: #0284c7;
 }
 
-
+/* Global page styles */
 body {
     background-color: var(--bg-main);
     color: var(--text-main);
@@ -10,15 +22,22 @@ body {
     margin: 0;
     text-align: center;
     font-family: 'Inter', 'Segoe UI', sans-serif;
+    zoom: 0.8;
 }
 
+.site-title {
+    font-size: 3rem;
+    margin-right: auto;
+}
+
+/* Page layout containers */
 .pageC {
     min-height: 70vh;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-
+    margin-top: 4rem;
 }
 
 .pageH {
@@ -27,9 +46,9 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-
 }
 
+/* Button utilities */
 .button-container {
     font-family: "Segoe UI", sans-serif;
     display: flex;
@@ -40,7 +59,6 @@ body {
     width: fit-content;
     margin: 0 auto;
     background-color: #ffffff;
-
 }
 
 .my-button {
@@ -59,15 +77,14 @@ body {
 }
 
 .my-button:hover {
-
     background-color: var(--primary-hover);
     transform: translateY(-3px);
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-
 }
 
+/* Workout table styles */
 .workout-table {
-    width: fit-content;
+    width: max-content;
     margin: 4rem auto;
     border: none;
     border-radius: 12px;
@@ -76,7 +93,6 @@ body {
     border-collapse: collapse;
     color: var(--text-main);
     text-align: center;
-
 }
 
 .workout-table td {
@@ -84,7 +100,6 @@ body {
     font-weight: bold;
     padding: 10px;
     text-align: center;
-
 }
 
 .workout-table th {
@@ -93,8 +108,6 @@ body {
     padding: 15px 10px;
     color: var(--header-text);
     text-align: center;
-
-
 }
 
 .workout-table td:nth-child(even) {
@@ -121,10 +134,8 @@ body {
 }
 
 .workout-table td button:hover {
-
     background-color: rgba(0, 0, 0, 0.08);
 }
-
 
 .workout-table th:nth-child(odd) {
     background-color: var(--header-primary);
@@ -134,7 +145,41 @@ body {
     background-color: var(--header-secondary);
 }
 
-/* Add Workouts page css */
+.workout-table th.NewWorkoutType,
+.workout-table td.inputCell {
+    width: 160px !important;
+    min-width: 160px !important;
+    max-width: 180px !important;
+    box-sizing: border-box;
+}
+
+.workout-table th.NewWorkoutType {
+    font-size: x-large !important;
+    padding: 15px 10px !important;
+    white-space: nowrap !important;
+}
+
+.workout-table td.inputCell,
+.workout-table td.controlsCell {
+    padding: 0 !important;
+}
+
+.inputText {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    height: 100%;
+    min-height: 45px;
+    margin: 0;
+    padding: 5px;
+    box-sizing: border-box;
+    border: 0px;
+    font-size: large;
+    background-color: transparent;
+}
+
+/* Add Workout page styles */
 .addWorkoutTable {
     width: fit-content;
     margin: 4rem auto;
@@ -143,8 +188,8 @@ body {
     overflow: hidden;
     box-shadow: var(--drop-shadow);
     border-collapse: collapse;
+    border-spacing: 0;
 }
-
 
 .addWorkoutTable th {
     font-size: x-large;
@@ -153,8 +198,6 @@ body {
     border-top: none;
     color: var(--header-text);
     padding: 15px 10px;
-
-
 }
 
 .addWorkoutTable th button {
@@ -168,8 +211,6 @@ body {
     color: var(--text-main);
 }
 
-
-
 .addWorkoutTable td {
     font-size: larger;
     font-weight: bold;
@@ -177,13 +218,10 @@ body {
     height: 30px;
     padding: 0;
     margin: 0;
-
-
-
 }
 
 .addWorkoutTable th:nth-child(odd) {
-    background-color: var(--header-primary)
+    background-color: var(--header-primary);
 }
 
 .addWorkoutTable th:nth-child(even) {
@@ -192,7 +230,6 @@ body {
 
 .addWorkoutTable td:nth-child(even) {
     background-color: var(--table-row2);
-    padding: 0;
 }
 
 .addWorkoutTable td:nth-child(odd) {
@@ -200,23 +237,17 @@ body {
 }
 
 .addWorkoutTable td button {
-
     border: none;
     position: relative;
     width: 100%;
     height: 100%;
     background-color: transparent;
     cursor: pointer;
-
-
 }
 
 .addWorkoutTable td button:hover {
     background-color: rgba(0, 0, 0, 0.08);
 }
-
-
-
 
 .addWorkoutTable td input {
     display: block;
@@ -231,52 +262,28 @@ body {
     font-size: large;
     text-align: center;
     font-weight: bold;
-
-
-
 }
 
 .addWorkoutTable td input:hover {
-
-
     cursor: pointer;
     filter: brightness(0.94);
     transition: filter 0.3s;
     background-color: rgba(0, 0, 0, 0.08);
-
-
-
-
 }
 
-
-
-
-
+/* Highlight rows */
+th.spanrow,
+table .spanrow2 {
+    background-color: #e2e8f0 !important;
+    color: var(--text-main) !important;
+}
 
 th.spanrow {
-    background-color: #e2e8f0 !important;
-    /* Light grey */
-    color: var(--text-main) !important;
     font-size: xx-large;
     padding: 5px;
 }
 
-.spanrow input[type="date"] {
-    cursor: pointer;
-
-
-}
-
-input[type="date"]::-webkit-calendar-picker-indicator {
-    cursor: pointer;
-}
-
-
 table .spanrow2 {
-    background-color: #e2e8f0 !important;
-    /* Light grey */
-    color: var(--text-main) !important;
     padding: 0%;
 }
 
@@ -285,18 +292,19 @@ th.spanrow2 button:hover {
     cursor: pointer;
 }
 
+.spanrow input[type="date"] {
+    cursor: pointer;
+}
 
+input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+}
 
-
-
-
+/* Workout list display */
 .display-workouts {
-
     width: fit-content;
     margin: 0 auto;
     box-sizing: border-box;
-
-
 }
 
 .display-workout {
@@ -307,22 +315,16 @@ th.spanrow2 button:hover {
     background-color: var(--table-row2);
     font-size: larger;
     font-weight: bold;
-
 }
 
 .display-workout:hover {
-
     background-color: silver;
     transform: scale(1.03);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-
-
-
 }
 
-
+/* Date inputs */
 input[type="date"] {
-
     border: none;
     font-family: inherit;
     color: var(--text-main);
@@ -331,37 +333,33 @@ input[type="date"] {
     background-color: transparent;
     padding: 0%;
     width: 200px;
-
 }
 
 input[type="date"]:focus {
     outline: none;
 }
 
+/* Calendar components */
 .react-calendar {
     width: 650px;
     margin: 0 auto;
     font-size: x-large;
     font-weight: bolder;
     padding: 10px;
-
 }
 
 .react-calendar__tile {
     background-color: var(--primary);
     aspect-ratio: 1/1;
-
     font-size: x-large;
     font-weight: bolder;
     color: white;
     border: white 3px solid;
     border-radius: 15px;
-
 }
 
 .react-calendar__month-view__weekdays__weekday abbr {
     text-decoration: none !important;
-
 }
 
 .react-calendar__month-view__days__day--neighboringMonth {
@@ -370,22 +368,17 @@ input[type="date"]:focus {
 
 .react-calendar__tile:hover {
     background-color: var(--primary-hover);
-
-
-}
-
-.react-calendar__navigation button:first-child {
-    display: none;
-}
-
-.react-calendar__navigation button:last-child {
-    display: none;
 }
 
 .react-calendar__navigation {
     margin: 0 auto;
     width: 650px;
     padding: 10px, 100px;
+}
+
+.react-calendar__navigation button:first-child,
+.react-calendar__navigation button:last-child {
+    display: none;
 }
 
 .react-calendar__navigation__label {
@@ -408,6 +401,7 @@ input[type="date"]:focus {
     cursor: pointer;
 }
 
+/* Day pills */
 .workout-day {
     background-color: var(--secondary);
     color: white;
@@ -417,16 +411,13 @@ input[type="date"]:focus {
 
 .workout-day:hover {
     background-color: var(--secondary-hover);
-
 }
 
+/* Back button */
 .back {
     border: none;
     border-radius: 12px;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding: 8px 15px;
     box-shadow: var(--drop-shadow);
     color: white;
     font-size: large;
@@ -442,158 +433,30 @@ input[type="date"]:focus {
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
-:root {
-    --bg-main: #f8fafc;
-    /* Clean, cool white */
-    --text-main: #0f172a;
-    /* Deep readable slate text */
-
-    --primary: #f97316;
-    /* Bold Modern Orange */
-    --primary-hover: #ea580c;
-    /* Darker Orange Hover */
-    --secondary: #0ea5e9;
-    /* Vibrant Cyan/Blue */
-    --secondary-hover: #0284c7;
-    /* Darker Blue Hover */
-
-    --header-text: #ffffff;
-    /* Crisp white header text */
-    --table-row1: #ffffff;
-    --table-row2: #f0f9ff;
-    /* Very subtle pale blue row */
-
-    --drop-shadow: 0 10px 25px -5px rgba(14, 165, 233, 0.15), 0 8px 10px -6px rgba(249, 115, 22, 0.1);
-
-    --header-primary: #ea580c;
-    /* Deep orange headers */
-    --header-secondary: #0284c7;
-    /* Deep blue headers */
-}
-
-
+/* Containers */
 .table-container {
-    width: 95%;
-    /* almost full width but leaves some space on sides */
+    width: 100%;
     margin: 0 auto;
-    /* center horizontally */
-    overflow-x: auto;
-    /* allows horizontal scroll if needed */
-}
-
-@media (max-width: 600px) {
-
-    /* Table headers */
-    .workout-table th,
-    .addWorkoutTable th {
-        font-size: 1rem;
-        /* slightly larger than cells */
-
-    }
-
-    .addWorkoutTable th.spanrow {
-        font-size: 1.2rem;
-        /* slightly larger than cells */
-        padding: 6px 8px;
-    }
-
-    /* Table cells */
-    .workout-table td,
-    .addWorkoutTable td {
-        font-size: 0.8rem;
-        /* smaller than headers */
-        padding: 2px 8px;
-    }
-
-    .addWorkoutTable th button {
-        font-size: 1rem;
-        /* slightly larger than cells */
-
-    }
-
-    /* Calendar */
-    .react-calendar {
-        width: 100%;
-        /* fills container width */
-        font-size: 0.85rem;
-
-        margin: 0 auto;
-        /* center the calendar */
-    }
-
-    .react-calendar__navigation {
-        display: inline-flex;
-        /* keep label and arrows together */
-        align-items: center;
-        /* vertically align */
-        justify-content: center;
-        /* center the group */
-        gap: 0.5rem;
-        /* space between arrows and label */
-        margin: 0 auto;
-        /* center the whole navigation */
-        padding: 1 rem 0;
-        width: auto;
-        /* shrink to fit content */
-    }
-
-    /* Month/year label */
-    .react-calendar__navigation__label {
-        font-size: 1.2rem;
-        font-weight: bolder;
-        text-align: center;
-        flex-grow: 0;
-    }
-
-    /* Arrows */
-    .react-calendar__navigation__arrow {
-        font-size: 1.2rem;
-        cursor: pointer;
-    }
-
-
-    /* Inputs */
-    input[type="date"] {
-        font-size: 1.2rem;
-        width: 34%;
-        padding: 4px;
-    }
-
-    input[type="number"] {
-        font-size: 0.9rem;
-        width: 30%;
-    }
 }
 
 .calendar-container {
     width: 95%;
     max-width: 650px;
-    /* optional max width */
     margin: 0 auto;
     display: flex;
     justify-content: center;
-    /* perfectly centers calendar */
     overflow-x: hidden;
     box-sizing: border-box;
     padding: 0;
-    /* remove asymmetric padding */
-
 }
 
-
-.login-container form {
-    width: 50%;
-    background-color: rgb(173, 170, 170);
-    padding: 20px;
-    margin: 20px auto;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    box-sizing: border-box;
-
+/* Login form */
+.login-container {
     display: flex;
     flex-direction: column;
+    gap: 10px;
+    margin-top: 30px;
 }
-
 
 .login-container form {
     width: 50%;
@@ -603,14 +466,11 @@ input[type="date"]:focus {
     border: 1px solid #ccc;
     border-radius: 6px;
     box-sizing: border-box;
-
     display: flex;
     flex-direction: column;
     gap: 16px;
-    /* consistent spacing system */
 }
 
-/* INPUT */
 .login-container form input {
     width: 100%;
     padding: 10px;
@@ -623,25 +483,7 @@ input[type="date"]:focus {
     margin: 0;
 }
 
-/* BUTTON */
-.login-container form button {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #7c7a7a;
-    border-radius: 4px;
-    font-weight: bold;
-    color: white;
-    font-size: 1.25rem;
-    background-color: var(--primary);
-    cursor: pointer;
-    margin: 0;
-}
-
-.login-container form button:hover {
-    background-color: var(--primary-hover);
-}
-
-/* LINK (MATCHES BUTTON EXACTLY) */
+.login-container form button,
 .login-container form a {
     display: block;
     width: 100%;
@@ -658,11 +500,11 @@ input[type="date"]:focus {
     margin: 0;
 }
 
+.login-container form button:hover,
 .login-container form a:hover {
     background-color: var(--primary-hover);
 }
 
-/* ERROR */
 .form-error {
     color: red;
     font-weight: bold;
@@ -672,13 +514,196 @@ input[type="date"]:focus {
     margin: 0;
 }
 
-.login-container {
+/* Navigation header */
+.nav {
+    background-color: var(--secondary);
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 30px;
+    align-items: center;
+    gap: 20px;
+    padding: 15px 30px;
 }
 
+.nav a,
+.nav button,
+.nav p {
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
 
+.nav a,
+.nav button {
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
 
-.pageH {}
+.nav a:hover,
+.nav button:hover {
+    color: #d0d5dd;
+}
+
+.nav p {
+    margin: 0;
+}
+
+/* Add workout controls */
+.SetControls {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #e2e8f0;
+    padding: 0;
+}
+
+.SetControls button {
+    font-size: large;
+    font-weight: bold;
+    width: 50%;
+    padding: 12px;
+    box-sizing: border-box;
+}
+
+.submitbtn {
+    background-color: #e2e8f0 !important;
+}
+
+.submitbtn button {
+    font-size: larger !important;
+    font-weight: bold !important;
+    height: 50px !important;
+    margin: 0 !important;
+}
+
+.addWorkoutTable td.Sets {
+    padding: 0 !important;
+    height: 1px;
+}
+
+.addWorkoutTable td.Sets .Sets {
+    vertical-align: middle;
+}
+
+.addWorkoutTable td.Sets .Weight,
+.addWorkoutTable td.Sets .Reps {
+    float: left;
+    width: 50%;
+    height: 100%;
+}
+
+.addWorkoutTable td.Sets .Weight input,
+.addWorkoutTable td.Sets .Reps input {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.addWorkoutTable td.notes {
+    padding: 0;
+    height: 1px;
+}
+
+.textarea {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    display: block;
+    resize: none;
+    margin: 0;
+    padding: 8px;
+    border: none;
+    background: transparent;
+    font-family: inherit;
+    color: var(--text-main);
+}
+
+.addButton {
+    background-color: #22c55e !important;
+    color: white !important;
+}
+
+.minusButton {
+    background-color: #ef4444 !important;
+    color: white;
+}
+
+.addButton:hover,
+.minusButton:hover {
+    filter: brightness(0.9);
+}
+
+.workout-spacer-row td {
+    height: 35px !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .workout-table th,
+    .addWorkoutTable th {
+        font-size: 1rem;
+    }
+
+    .addWorkoutTable th.spanrow {
+        font-size: 1.2rem;
+        padding: 6px 8px;
+    }
+
+    .workout-table td,
+    .addWorkoutTable td {
+        font-size: 0.8rem;
+        padding: 2px 8px;
+    }
+
+    .addWorkoutTable th button {
+        font-size: 1rem;
+    }
+
+    .react-calendar {
+        width: 100%;
+        font-size: 0.85rem;
+        margin: 0 auto;
+    }
+
+    .react-calendar__navigation {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        margin: 0 auto;
+        padding: 1rem 0;
+        width: auto;
+    }
+
+    .react-calendar__navigation__label,
+    .react-calendar__navigation__arrow {
+        font-size: 1.2rem;
+    }
+
+    .react-calendar__navigation__label {
+        flex-grow: 0;
+        text-align: center;
+    }
+
+    .react-calendar__navigation__arrow {
+        cursor: pointer;
+    }
+
+    input[type="date"] {
+        font-size: 1.2rem;
+        width: 34%;
+        padding: 4px;
+    }
+
+    input[type="number"] {
+        font-size: 0.9rem;
+        width: 30%;
+    }
+}

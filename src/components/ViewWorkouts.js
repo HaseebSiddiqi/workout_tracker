@@ -1,0 +1,169 @@
+import { useEffect, useState } from "react";
+import Calendar from "react-calendar";
+import React from "react";
+export default function ViewWorkouts( {username}){
+
+
+    const [viewWorkouts, updateWorkouts] = useState([]);
+
+    const [viewCalender, updateCalender] = useState(true);
+
+    const [currentDate, setDate] = useState(null);
+  
+    const [feedback, setFeedback] =useState("");
+
+
+    useEffect(() => {
+        const fetchWorkouts = async () => {
+            try {
+                const res = await fetch(`http://localhost:5000/workoutLogs/${encodeURIComponent(username)}`);
+                const data = await res.json();
+
+                updateWorkouts(data.Items || []);
+                
+
+            }
+            catch (err){
+                console.error(err);
+            }
+            }
+        if (username){
+            fetchWorkouts();
+        }
+        
+    }, [username])
+
+    const handleDelete = async (workoutId) =>{
+        await fetch(`http://localhost:5000/workoutLogs/${encodeURIComponent(username)}/${workoutId}`, {
+            method: "DELETE"
+        });
+
+        updateWorkouts(prev => 
+            prev.filter(w=> w.workoutId !== workoutId)
+        );
+        updateCalender(true);
+    
+        
+        setFeedback("Workout Deleted!")
+        setTimeout(()=> {
+            setFeedback("");
+        }, 2000)
+       
+        
+    };
+ 
+
+    const isWorkout = (date) =>{
+        const dateString = date.toISOString().split("T")[0];
+        return viewWorkouts.some(w=> w.date === dateString);
+    }
+    return(
+        <>
+        
+        {viewCalender ? (
+            <div className="calendar-container"> 
+            <Calendar
+                showFixedNumberOfWeeks={true}   
+                onClickDay={(date) =>{
+                    if (isWorkout(date)){
+                        setDate(date);
+                        updateCalender(false);
+
+                    }
+
+
+                }}
+                tileClassName={({date, view})=>{ 
+                    if (view ==="month" && isWorkout(date)){
+                        return "workout-day";
+                    }
+                        return null;
+                    }
+                }
+                
+            />               
+            </div> 
+            
+                 ) : (
+                
+                    <div className="table-container"> 
+                    <table className="addWorkoutTable" >
+                        <tbody>
+
+                            <tr>
+                                <th className="spanrow" colSpan={5} >{currentDate?.toISOString().split("T")[0]}</th>
+                            </tr>
+                            {viewWorkouts
+                                .filter(w => w.date === currentDate?.toISOString().split("T")[0])
+                                .map((w, index, arr) => (
+                                <React.Fragment key={w.workoutId}>
+                                <tr>
+                                    <th>{w.workoutName}</th>
+                                    
+                                    {w.exercises[0].sets.map((set, i)=>(
+                                        <th>
+                                            <div key ={i}>
+                                                 Set {i +1}
+                                            </div>
+                                        </th>
+                                       
+                                    ))}
+                                    <th> Notes</th>
+                                    
+                                 
+                                </tr>
+                                    {w.exercises?.map((exercise, exerciseIndex) => (
+                                   
+                                    <tr key={exerciseIndex}>
+                                        <td> {exercise.name} </td>
+                                        
+                                        {exercise.sets.map((set, i) => (
+                                            <td> 
+                                            <div key={i}> 
+                                                {set.weight}  {set.reps} 
+                                            </div>
+                                            </td>
+                                        ))}
+                                        {exerciseIndex === 0 && (
+                                             <td rowSpan={w.exercises.length}> {w.notes}</td>
+                                        )}
+                                       
+                                      
+
+                                    </tr>
+                                    ))}
+                             
+                                <tr>
+                                    <th className="spanrow2" colSpan={5}>  <button onClick={() => handleDelete(w.workoutId)} > Delete</button></th>
+                                </tr>
+                                {index < arr.length - 1 && (
+                                    <tr className="workout-spacer-row">
+                                        <td colSpan={12}></td>
+                                    </tr>
+                                )}
+                                </React.Fragment>
+                              
+                              
+                                ))}
+                              
+                            
+                        </tbody>
+                    </table>
+                    </div>
+                
+               
+                
+            )
+            
+        }  
+        {feedback &&<h2>{feedback}</h2>}
+
+           
+  
+        </>
+       
+    )
+
+   
+
+}

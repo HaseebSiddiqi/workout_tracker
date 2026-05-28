@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { signUp } from "aws-amplify/auth";
-import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import VerifyAccount from "../components/VerifyAccount";
 export default function Signup() {
@@ -9,7 +8,7 @@ export default function Signup() {
     const [email, setEmail] = useState("");
     const [error, setError] = useState("");
     const [verifyAccount, setVerifyAccount] = useState(false);
-    const navigate = useNavigate();
+
 
     const handleSignup = async (e) => {
         e.preventDefault();
