@@ -101,7 +101,7 @@ export default function ViewWorkouts( {username}){
                                     <th>{w.workoutName}</th>
                                     
                                     {w.exercises[0].sets.map((set, i)=>(
-                                        <th>
+                                        <th key={i}>
                                             <div key ={i}>
                                                  Set {i +1}
                                             </div>
@@ -115,13 +115,27 @@ export default function ViewWorkouts( {username}){
                                     {w.exercises?.map((exercise, exerciseIndex) => (
                                    
                                     <tr key={exerciseIndex}>
-                                        <td> {exercise.name} </td>
+                                        <td className="exercise-name-cell"> 
+                                            <div className="exercise-name-wrapper">
+                                                {exerciseIndex === 0 && <div className="set-labels-spacer">&nbsp;</div>}
+                                                <div className="exercise-name-content">{exercise.name}</div> 
+                                            </div>
+                                        </td>
                                         
                                         {exercise.sets.map((set, i) => (
-                                            <td> 
-                                            <div key={i}> 
-                                                {set.weight}  {set.reps} 
-                                            </div>
+                                            <td className='Sets' key={i}> 
+                                                <div className="Sets-content">
+                                                    {exerciseIndex === 0 && (
+                                                        <div className="set-labels">
+                                                            <span className="label-w">W</span>
+                                                            <span className="label-r">R</span>
+                                                        </div>
+                                                    )}
+                                                    <div className="set-inputs">
+                                                        <div className='Weight'>{set.weight}</div>
+                                                        <div className='Reps'>{set.reps}</div>
+                                                    </div>
+                                                </div>
                                             </td>
                                         ))}
                                         {exerciseIndex === 0 && (

@@ -145,62 +145,74 @@ export default function Add_workouts({ username }) {
                             {newWorkout?.exercises?.map((exercise, i) => (
                                 <tr key={i}>
 
-                                    <td>{exercise.name} </td>
+                                    <td className="exercise-name-cell">
+                                        <div className="exercise-name-wrapper">
+                                            {i === 0 && <div className="set-labels-spacer">&nbsp;</div>}
+                                            <div className="exercise-name-content">{exercise.name}</div>
+                                        </div>
+                                    </td>
                                     {exercise.sets.map((set, j) => (
 
 
                                         <td className='Sets' key={j}>
-                                            <div className='Weight'>
-                                                <input
-                                                    type="number"
-
-                                                    value={set.weight}
-                                                    onChange = {(e) =>
-                                                        setNewWorkout(prev => ({
-                                                            ...prev,
-                                                            exercises: prev.exercises.map((ex, exIndex) =>
-                                                            exIndex === i
-                                                        ? {
-                                                            ...ex,
-                                                            sets: ex.sets.map((s,sIndex) => 
-                                                                sIndex === j
-                                                                ? {...s, weight: e.target.value} 
-                                                                : s 
+                                            <div className="Sets-content">
+                                                {i === 0 && (
+                                                    <div className="set-labels">
+                                                        <span className="label-w">W</span>
+                                                        <span className="label-r">R</span>
+                                                    </div>
+                                                )}
+                                                <div className="set-inputs">
+                                                    <div className='Weight'>
+                                                        <input
+                                                            type="number"
+                                                            min="0"                     
+                                                            value={set.weight}
+                                                            onChange = {(e) =>
+                                                                setNewWorkout(prev => ({
+                                                                    ...prev,
+                                                                    exercises: prev.exercises.map((ex, exIndex) =>
+                                                                    exIndex === i
+                                                                ? {
+                                                                    ...ex,
+                                                                    sets: ex.sets.map((s,sIndex) => 
+                                                                        sIndex === j
+                                                                        ? {...s, weight: Math.max(0, Number(e.target.value))} 
+                                                                        : s 
+                                                                    )
+                                                                } 
+                                                                : ex
                                                             )
-                                                        } 
-                                                        : ex
-                                                    )
-                                                    }))
-                                                }
-                                                   
-
-                                                />
-                                            </div>
-                                            <div className='Reps'>
-                                                <input
-                                                    type="number"
-
-                                                    value={set.reps}
-                                                      onChange = {(e) =>
-                                                        setNewWorkout(prev => ({
-                                                            ...prev,
-                                                            exercises: prev.exercises.map((ex, exIndex) =>
-                                                            exIndex === i
-                                                        ? {
-                                                            ...ex,
-                                                            sets: ex.sets.map((s,sIndex) => 
-                                                                sIndex === j
-                                                                ? {...s, reps: e.target.value} 
-                                                                : s 
+                                                            }))
+                                                        }
+                                                        />
+                                                    </div>
+                                                    <div className='Reps'>
+                                                        <input
+                                                            type="number"
+                                                            min="0"
+                                                            value={set.reps}
+                                                            onChange = {(e) =>
+                                                                setNewWorkout(prev => ({
+                                                                    ...prev,
+                                                                    exercises: prev.exercises.map((ex, exIndex) =>
+                                                                    exIndex === i
+                                                                ? {
+                                                                    ...ex,
+                                                                    sets: ex.sets.map((s,sIndex) => 
+                                                                        sIndex === j
+                                                                        ? {...s, reps: Math.max(0, Number(e.target.value))} 
+                                                                        : s 
+                                                                    )
+                                                                } 
+                                                                : ex
                                                             )
-                                                        } 
-                                                        : ex
-                                                    )
-                                                    }))
-                                                }
-                                                />
+                                                            }))
+                                                        }
+                                                        />
+                                                    </div>
+                                                </div>
                                             </div>
-
                                         </td>
                                     ))}
                                     {i === 0 && (

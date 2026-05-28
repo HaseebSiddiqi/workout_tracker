@@ -41,7 +41,7 @@ export default function Login() {
     };
 
     return (
-        <div className="login-container">
+        <div className="card login-card">
             {resetPassword ? (
                 <ResetPassword onBack={() => setResetPassword(false)} />
             ) : (
@@ -49,39 +49,45 @@ export default function Login() {
                     <h2>Log In</h2>
                     <form onSubmit={handleLogin}>
 
+                        <div className="input-group">
+                            <label>Username</label>
+                            <input
+                                type="text"
+                                className="modern-input"
+                                value={username}
+                                placeholder="Enter your username"
+                                onChange={(e) => setUsername(e.target.value)}
+                                required
+                            />
+                        </div>
 
-                        <input
-                            type="text"
-                            value={username}
-                            placeholder="Username or Email"
-                            onChange={(e) => setUsername(e.target.value)}
-                            required
-                        />
-
-
-
-                        <input
-                            type="password"
-                            value={password}
-                            placeholder="Password"
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                        />
+                        <div className="input-group">
+                            <label>Password</label>
+                            <input
+                                type="password"
+                                className="modern-input"
+                                value={password}
+                                placeholder="Enter your password"
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                            />
+                        </div>
 
                         {error && <p className="form-error">{error}</p>}
 
-                        <Link to="/signup">Create account</Link>
+                        <button type="submit" className="btn btn-primary" style={{ marginTop: '10px' }}>Sign In</button>
 
+                        <div style={{ marginTop: '15px' }}>
+                            <button type="button" className="btn btn-secondary" style={{ backgroundColor: 'transparent', color: '#64748b', boxShadow: 'none' }} onClick={() => setResetPassword(true)}>Forgot Password?</button>
+                        </div>
 
-                        <button type="submit">Sign In</button>
-
-                        <button type="button" onClick={() => setResetPassword(true)}>Forgot Password</button>
-
+                        <p className="text-center">
+                            Don't have an account? <Link to="/signup">Sign up</Link>
+                        </p>
                     </form>
                 </>
             )}
         </div>
-
     )
 }
 

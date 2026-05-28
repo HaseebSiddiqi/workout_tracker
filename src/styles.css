@@ -450,59 +450,94 @@ input[type="date"]:focus {
     padding: 0;
 }
 
-/* Login form */
-.login-container {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 30px;
-}
-
-.login-container form {
-    width: 50%;
-    background-color: rgb(173, 170, 170);
-    padding: 20px;
-    margin: 20px auto;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-.login-container form input {
+/* Modern Card Styles */
+.card {
+    background-color: var(--surface, #ffffff);
+    border-radius: 20px;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    padding: 40px;
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    max-width: 450px;
     box-sizing: border-box;
+    margin: 40px auto;
+}
+
+/* Login UI */
+.login-card h2 {
+    margin-top: 0;
+    font-size: 2rem;
     text-align: center;
-    font-size: 1.25rem;
-    font-weight: bold;
-    margin: 0;
+    color: var(--text-main);
 }
 
-.login-container form button,
-.login-container form a {
-    display: block;
+.input-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: left;
+}
+
+.input-group label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #64748b;
+}
+
+.modern-input {
+    padding: 14px 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: all 0.2s ease;
+    background-color: #f1f5f9;
     width: 100%;
-    padding: 10px;
-    border: 1px solid #7c7a7a;
-    border-radius: 4px;
-    font-weight: bold;
-    color: white;
-    font-size: 1.25rem;
-    text-decoration: none;
+    box-sizing: border-box;
+}
+
+.modern-input:focus {
+    outline: none;
+    border-color: var(--secondary);
+    background-color: white;
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15);
+}
+
+.btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+.btn-primary {
     background-color: var(--primary);
-    text-align: center;
-    box-sizing: border-box;
-    margin: 0;
+    color: white;
+    box-shadow: 0 10px 25px -5px rgba(249, 115, 22, 0.3);
 }
 
-.login-container form button:hover,
-.login-container form a:hover {
+.btn-primary:hover {
     background-color: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px -5px rgba(249, 115, 22, 0.4);
+}
+
+.text-center {
+    text-align: center;
+    margin-top: 20px;
+    color: #64748b;
+}
+
+.text-center a {
+    color: var(--secondary);
+    font-weight: 600;
+    text-decoration: none;
 }
 
 .form-error {
@@ -578,28 +613,114 @@ input[type="date"]:focus {
     margin: 0 !important;
 }
 
-.addWorkoutTable td.Sets {
+.addWorkoutTable td.Sets,
+.workout-table td.Sets {
     padding: 0 !important;
     height: 1px;
 }
 
-.addWorkoutTable td.Sets .Sets {
+.Sets-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+.set-labels {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    color: var(--text-main);
+    opacity: 0.8;
+    padding: 4px 0 2px;
+    font-weight: 700;
+}
+
+.label-w,
+.label-r {
+    flex: 1;
+    text-align: center;
+}
+
+.label-w {
+    border-right: 1px solid #cbd5e1;
+}
+
+td.exercise-name-cell {
+    padding: 0 !important;
+    height: 1px;
     vertical-align: middle;
 }
 
-.addWorkoutTable td.Sets .Weight,
-.addWorkoutTable td.Sets .Reps {
-    float: left;
-    width: 50%;
-    height: 100%;
-}
-
-.addWorkoutTable td.Sets .Weight input,
-.addWorkoutTable td.Sets .Reps input {
+.exercise-name-wrapper {
+    display: flex;
+    flex-direction: column;
     height: 100%;
     width: 100%;
+}
+
+.set-labels-spacer {
+    font-size: 0.85rem;
+    padding: 4px 0 2px;
+    line-height: normal;
+    display: block;
+}
+
+.exercise-name-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    min-height: 40px;
+    padding: 0 10px;
+}
+
+/* Hide number spin buttons to keep numbers perfectly centered under labels */
+.set-inputs input[type="number"]::-webkit-outer-spin-button,
+.set-inputs input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
     margin: 0;
+}
+
+.set-inputs input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+.set-inputs {
+    display: flex;
+    width: 100%;
+    flex: 1;
+    min-height: 40px;
+}
+
+.set-inputs .Weight,
+.set-inputs .Reps {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.set-inputs .Weight {
+    border-right: 1px solid #cbd5e1;
+}
+
+.set-inputs input {
+    width: 100%;
+    height: 100%;
+    min-height: 40px;
+    text-align: center;
+    border: none;
+    background: transparent;
+    font-size: large;
+    font-weight: bold;
+    color: var(--text-main);
     box-sizing: border-box;
+}
+
+.set-inputs input:hover {
+    background-color: rgba(0, 0, 0, 0.08);
 }
 
 .addWorkoutTable td.notes {
@@ -646,6 +767,7 @@ input[type="date"]:focus {
 
 /* Responsive adjustments */
 @media (max-width: 600px) {
+
     .workout-table th,
     .addWorkoutTable th {
         font-size: 1rem;
@@ -706,4 +828,21 @@ input[type="date"]:focus {
         font-size: 0.9rem;
         width: 30%;
     }
+}
+
+.btn.btn-secondary {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+
+    padding: 0 !important;
+    width: fit-content;
+    display: inline-block;
+
+    transition: transform 0.2s ease;
+    transform-origin: center;
+}
+
+.btn.btn-secondary:hover {
+    transform: scale(1.25);
 }
