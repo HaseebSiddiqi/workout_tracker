@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
+import { apiFetch } from "./apiClient.js"; 
 
-export default function Create_workouts({ username }) {
+export default function Create_workouts() {
 
 
     const [workouts, setWorkouts] = useState([]);
@@ -16,7 +17,8 @@ export default function Create_workouts({ username }) {
 
         const fetchWorkouts = async () => {
             try {
-                const res = await fetch(`http://localhost:5000/workouts/${encodeURIComponent(username)}`);
+                
+                const res = await apiFetch(`http://localhost:5000/workouts`);
                 const data = await res.json();
 
                 setWorkouts(data.Items || []);
@@ -25,13 +27,13 @@ export default function Create_workouts({ username }) {
                 console.error(err);
             }
         }
-        if (username) {
+       
             fetchWorkouts();
-        }
-    }, [username])
+        
+    }, [])
 
-    const newWorkout = () => {
-        if (!username) return;
+    const newWorkout = async() => {
+        
 
         if (!workoutNameInput.trim()) {
             alert("Please enter a Workout Name");
@@ -45,14 +47,14 @@ export default function Create_workouts({ username }) {
         }
 
         const workout = {
-            username,
+            
             workoutName: workoutNameInput.trim(),
             exercises: validExercises
         };
 
         setWorkouts([...workouts, workout]);
 
-        fetch("http://localhost:5000/workouts", {
+        await apiFetch("http://localhost:5000/workouts", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(workout)
@@ -68,19 +70,26 @@ export default function Create_workouts({ username }) {
        
     }
     
-    const deleteWorkout = (index) => {
+    const deleteWorkout = async (index) => {
 
         const workoutToDelete = workouts[index];
 
-
-        const username = workoutToDelete.username;
         const workoutName = workoutToDelete.workoutName;
 
-        fetch(`http://localhost:5000/workouts/${encodeURIComponent(username)}/${encodeURIComponent(workoutName)}`, {
-            method: "DELETE"
-        }).then(res => {
-            if (!res.ok) console.error("Failed to delete workout");
-        }).catch(err => console.error("Error deleting workout:", err));
+        try {
+        const res = await apiFetch(
+            `http://localhost:5000/workouts/${encodeURIComponent(workoutName)}`,
+            {
+                method: "DELETE"
+            }
+        );
+
+        if (!res.ok) {
+            const err = await res.json();
+            console.error("Delete failed:", err);
+            return;
+        }
+
 
         const updatedWorkouts = workouts.filter((_, i) => i !== index);
         setWorkouts(updatedWorkouts);
@@ -89,6 +98,10 @@ export default function Create_workouts({ username }) {
         setTimeout(()=> {
             setFeedback("");
         }, 2000)
+
+          } catch (err) {
+        console.error("Error deleting workout:", err);
+        }
 
     };
 

@@ -1,5 +1,7 @@
 require("dotenv").config();
 
+const authMiddleware = require("./authMiddleware");
+
 const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
 const { DynamoDBDocumentClient, PutCommand, QueryCommand, DeleteCommand } = require("@aws-sdk/lib-dynamodb");
 
@@ -32,9 +34,10 @@ app.listen(5000, () => {
 });
 
 //Create new workout type
-app.post("/workouts", async (req, res) => {
+app.post("/workouts", authMiddleware, async (req, res) => {
     try {
-        const { username, workoutName, exercises } = req.body;
+        const username = req.user.username;
+        const { workoutName, exercises } = req.body;
 
         const item = {
             username,
@@ -60,9 +63,9 @@ app.post("/workouts", async (req, res) => {
 });
 
 //Get workout types for user
-app.get("/workouts/:username", async (req, res) => {
+app.get("/workouts", authMiddleware, async (req, res) => {
     try {
-        const { username } = req.params;
+        const username = req.user.username;
 
         const result = await db.send(
             new QueryCommand({
@@ -83,10 +86,10 @@ app.get("/workouts/:username", async (req, res) => {
 });
 
 //Delete workout type
-app.delete("/workouts/:username/:workoutName", async (req, res) => {
+app.delete("/workouts/:workoutName", authMiddleware, async (req, res) => {
     try {
-        const { username, workoutName } = req.params;
-
+        const { workoutName } = req.params;
+        const username = req.user.username;
         await db.send(
             new DeleteCommand({
                 TableName: "WorkoutTypes",
@@ -110,9 +113,10 @@ app.delete("/workouts/:username/:workoutName", async (req, res) => {
 
 
 // CRUD CALLS FOR WORKOUT LOGS 
-app.post("/workoutLogs", async (req, res) => {
+app.post("/workoutLogs", authMiddleware, async (req, res) => {
     try {
-        const { username, workoutId, workoutName,date, notes, exercises } = req.body;
+        const { workoutId, workoutName,date, notes, exercises } = req.body;
+        const username = req.user.username;
 
         const item = {
             username,
@@ -140,9 +144,9 @@ app.post("/workoutLogs", async (req, res) => {
 
 });
 
-app.get("/workoutLogs/:username", async (req,res) => {
+app.get("/workoutLogs", authMiddleware, async (req,res) => {
     try {   
-        const {username} = req.params;
+        const username = req.user.username;
 
         const result = await db.send(
             new QueryCommand({
@@ -162,9 +166,10 @@ app.get("/workoutLogs/:username", async (req,res) => {
     }
 });
 
-app.delete("/workoutLogs/:username/:workoutId", async (req, res) => {
+app.delete("/workoutLogs/:workoutId", authMiddleware, async (req, res) => {
     try {
-        const { username, workoutId} = req.params;
+        const {workoutId} = req.params;
+        const username = req.user.username;
 
         await db.send(
             new DeleteCommand({
@@ -176,7 +181,7 @@ app.delete("/workoutLogs/:username/:workoutId", async (req, res) => {
             })
         );
         res.json({success:true});
-        console.log({workoutName}, "Deleted Successfully");
+        console.log({workoutId}, "Deleted Successfully");
 
     }
     catch (err){

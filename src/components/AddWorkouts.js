@@ -1,10 +1,11 @@
 
 import { useState, useEffect } from 'react';
+import { apiFetch } from "./apiClient.js";
 
 
 
 
-export default function Add_workouts({ username }) {
+export default function Add_workouts() {
 
     const [workouts, setWorkouts] = useState([]);
 
@@ -16,7 +17,7 @@ export default function Add_workouts({ username }) {
 
         const fetchWorkouts = async () => {
             try {
-                const res = await fetch(`http://localhost:5000/workouts/${encodeURIComponent(username)}`);
+                const res = await  await apiFetch(`http://localhost:5000/workouts`);
                 const data = await res.json();
 
                 setWorkouts(data.Items || []);
@@ -25,15 +26,15 @@ export default function Add_workouts({ username }) {
                 console.error(err);
             }
         }
-        if (username) {
-            fetchWorkouts();
-        }
-    }, [username])
+        
+        fetchWorkouts();
+        
+    }, [])
 
 
     const handleClick = (selectWorkout) => {
         setNewWorkout({
-            username: username,
+            
             workoutId: Date.now().toString(),
             workoutName: selectWorkout?.workoutName,
             date: new Date().toISOString().split("T")[0],
@@ -90,8 +91,8 @@ export default function Add_workouts({ username }) {
         })
     }
 
-    const submitTable = () => {
-        fetch("http://localhost:5000/workoutLogs", {
+    const submitTable = async () => {
+        await apiFetch("http://localhost:5000/workoutLogs", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(newWorkout)

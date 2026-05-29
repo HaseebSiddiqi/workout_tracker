@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import React from "react";
-export default function ViewWorkouts( {username}){
+import { apiFetch } from "./apiClient.js";
+
+export default function ViewWorkouts(){
 
 
     const [viewWorkouts, updateWorkouts] = useState([]);
@@ -16,7 +18,7 @@ export default function ViewWorkouts( {username}){
     useEffect(() => {
         const fetchWorkouts = async () => {
             try {
-                const res = await fetch(`http://localhost:5000/workoutLogs/${encodeURIComponent(username)}`);
+                const res = await apiFetch(`http://localhost:5000/workoutLogs`);
                 const data = await res.json();
 
                 updateWorkouts(data.Items || []);
@@ -27,14 +29,14 @@ export default function ViewWorkouts( {username}){
                 console.error(err);
             }
             }
-        if (username){
-            fetchWorkouts();
-        }
         
-    }, [username])
+            fetchWorkouts();
+        
+        
+    }, [])
 
     const handleDelete = async (workoutId) =>{
-        await fetch(`http://localhost:5000/workoutLogs/${encodeURIComponent(username)}/${workoutId}`, {
+        await apiFetch(`http://localhost:5000/workoutLogs/${workoutId}`, {
             method: "DELETE"
         });
 
