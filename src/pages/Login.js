@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
 import ResetPassword from '../components/ResetPassword';
 import { getCurrentUser } from 'aws-amplify/auth';
+import { useNavigate } from "react-router-dom";
 
 
 export default function Login() {
