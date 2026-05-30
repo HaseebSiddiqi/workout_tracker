@@ -25,22 +25,9 @@ body {
     zoom: 0.8;
 }
 
-@media (max-width: 768px) {
-    body {
-        zoom: 1;
-    }
-}
-
 .site-title {
     font-size: 3rem;
     margin-right: auto;
-}
-
-@media (max-width: 768px) {
-    .site-title {
-        font-size: 1.5rem;
-        margin-right: 0;
-    }
 }
 
 /* Page layout containers */
@@ -53,29 +40,12 @@ body {
     margin-top: 4rem;
 }
 
-@media (max-width: 768px) {
-    .pageC {
-        min-height: auto;
-        margin-top: 2rem;
-        padding: 0 10px;
-        box-sizing: border-box;
-    }
-}
-
 .pageH {
     min-height: 55vh;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-}
-
-@media (max-width: 768px) {
-    .pageH {
-        min-height: auto;
-        padding: 0 10px;
-        box-sizing: border-box;
-    }
 }
 
 /* Button utilities */
@@ -106,14 +76,6 @@ body {
     transition: all 0.2s ease-in-out;
 }
 
-@media (max-width: 768px) {
-    .my-button {
-        height: 3rem;
-        width: 10rem;
-        font-size: 16px;
-    }
-}
-
 .my-button:hover {
     background-color: var(--primary-hover);
     transform: translateY(-3px);
@@ -133,20 +95,18 @@ body {
     text-align: center;
 }
 
-@media (max-width: 768px) {
-    .workout-table {
-        margin: 2rem auto;
-        font-size: 0.9rem;
-        overflow-x: auto;
-        max-width: 100%;
-        display: block;
-    }
-}
-
 .workout-table td {
     font-size: larger;
     font-weight: bold;
     padding: 10px;
+    text-align: center;
+}
+
+.workout-table th {
+    font-size: x-large;
+    font-weight: bold;
+    padding: 15px 10px;
+    color: var(--header-text);
     text-align: center;
 }
 
@@ -163,6 +123,14 @@ body {
 }
 
 .workout-table td:nth-child(odd) {
+    background-color: var(--table-row1);
+}
+
+.workout-table tr:nth-child(even) td {
+    background-color: var(--table-row2);
+}
+
+.workout-table tr:nth-child(odd) td {
     background-color: var(--table-row1);
 }
 
@@ -201,15 +169,6 @@ body {
     box-sizing: border-box;
 }
 
-@media (max-width: 768px) {
-    .workout-table th.NewWorkoutType,
-    .workout-table td.inputCell {
-        width: 80px !important;
-        min-width: 70px !important;
-        max-width: 100px !important;
-    }
-}
-
 .workout-table th.NewWorkoutType {
     font-size: x-large !important;
     padding: 15px 10px !important;
@@ -236,34 +195,17 @@ body {
     background-color: transparent;
 }
 
-@media (max-width: 768px) {
-    .inputText {
-        font-size: 0.9rem;
-        min-height: 35px;
-        padding: 3px;
-    }
-}
-
 /* Add Workout page styles */
 .addWorkoutTable {
-    width: fit-content;
-    margin: 4rem auto;
+    width: 100%;
+    max-width: 100%;
+    margin: 2rem auto;
     border: none;
     border-radius: 12px;
-    overflow: hidden;
+    overflow-x: auto;
+    display: block;
     box-shadow: var(--drop-shadow);
     border-collapse: collapse;
-    border-spacing: 0;
-}
-
-@media (max-width: 768px) {
-    .addWorkoutTable {
-        margin: 2rem auto;
-        font-size: 0.9rem;
-        max-width: 100%;
-        overflow-x: auto;
-        display: block;
-    }
 }
 
 .addWorkoutTable th {
@@ -284,6 +226,15 @@ body {
     padding: 10px;
     background-color: transparent;
     color: var(--text-main);
+}
+
+.addWorkoutTable td {
+    font-size: larger;
+    font-weight: bold;
+    width: 150px;
+    height: 30px;
+    padding: 0;
+    margin: 0;
 }
 
 .addWorkoutTable td {
@@ -410,15 +361,6 @@ input[type="date"] {
     width: 200px;
 }
 
-@media (max-width: 768px) {
-    input[type="date"] {
-        font-size: 1rem;
-        width: 100%;
-        max-width: 150px;
-        padding: 4px;
-    }
-}
-
 input[type="date"]:focus {
     outline: none;
 }
@@ -426,20 +368,59 @@ input[type="date"]:focus {
 /* Calendar components */
 .react-calendar {
     width: 650px;
+    max-width: 100%;
     margin: 0 auto;
     font-size: x-large;
     font-weight: bolder;
     padding: 10px;
+    box-sizing: border-box;
 }
 
-@media (max-width: 768px) {
-    .react-calendar {
-        width: 100%;
-        max-width: 100%;
-        font-size: 0.9rem;
-        padding: 8px;
-        margin: 0 auto;
-    }
+/* NAVIGATION BAR (month + arrows centered) */
+.react-calendar__navigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    width: 100%;
+    margin: 0 auto;
+    padding: 10px 0;
+
+    position: relative;
+}
+
+/* Remove weird default spacing behavior */
+.react-calendar__navigation button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: x-large;
+    font-weight: bolder;
+    color: var(--text-main);
+    padding: 6px 10px;
+}
+
+/* Month label centered */
+.react-calendar__navigation__label {
+    flex: 1;
+    text-align: center;
+    font-size: x-large;
+    font-weight: bolder;
+    background: transparent;
+    border: none;
+    color: var(--text-main);
+}
+
+.react-calendar__navigation__prev-button,
+.react-calendar__navigation__next-button {
+    flex: 0 0 auto;
+}
+
+
+.react-calendar__navigation button:first-child,
+.react-calendar__navigation button:last-child {
+    display: none;
 }
 
 .react-calendar__tile {
@@ -448,59 +429,35 @@ input[type="date"]:focus {
     font-size: x-large;
     font-weight: bolder;
     color: white;
-    border: white 3px solid;
+    border: 3px solid white;
     border-radius: 15px;
-}
-
-@media (max-width: 768px) {
-    .react-calendar__tile {
-        font-size: 0.85rem;
-        border-width: 2px;
-        border-radius: 8px;
-    }
-}
-
-.react-calendar__month-view__weekdays__weekday abbr {
-    text-decoration: none !important;
-}
-
-.react-calendar__month-view__days__day--neighboringMonth {
-    opacity: 0.65;
 }
 
 .react-calendar__tile:hover {
     background-color: var(--primary-hover);
 }
 
-.react-calendar__navigation {
-    margin: 0 auto;
-    width: 650px;
-    padding: 10px, 100px;
-}
+@media (max-width: 600px) {
 
-.react-calendar__navigation button:first-child,
-.react-calendar__navigation button:last-child {
-    display: none;
-}
+    .react-calendar {
+        width: 100%;
+        font-size: 0.8rem;
+        padding: 5px;
+    }
 
-.react-calendar__navigation__label {
-    background-color: transparent;
-    color: var(--text-main);
-    font-size: x-large;
-    font-weight: bolder;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-}
+    .react-calendar__navigation {
+        gap: 6px;
+        padding: 8px 0;
+    }
 
-.react-calendar__navigation__arrow {
-    background-color: transparent;
-    color: var(--text-main);
-    font-size: x-large;
-    font-weight: bolder;
-    border: none;
+    .react-calendar__navigation button {
+        font-size: 1rem;
+        padding: 4px 6px;
+    }
 
-    cursor: pointer;
+    .react-calendar__navigation__label {
+        font-size: 1rem;
+    }
 }
 
 /* Day pills */
@@ -529,13 +486,6 @@ input[type="date"]:focus {
     transition: all 0.2s ease-in-out;
 }
 
-@media (max-width: 768px) {
-    .back {
-        padding: 6px 12px;
-        font-size: 0.9rem;
-    }
-}
-
 .back:hover {
     background-color: var(--secondary-hover);
     transform: translateY(-2px);
@@ -546,14 +496,20 @@ input[type="date"]:focus {
 .table-container {
     width: 100%;
     margin: 0 auto;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    box-sizing: border-box;
 }
 
 @media (max-width: 768px) {
     .table-container {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        padding: 0 10px;
-        box-sizing: border-box;
+        padding: 0 4px;
+    }
+
+    .table-container .workout-table,
+    .table-container .addWorkoutTable {
+        zoom: 0.6;
+        margin: 1rem auto;
     }
 }
 
@@ -568,14 +524,6 @@ input[type="date"]:focus {
     padding: 0;
 }
 
-@media (max-width: 768px) {
-    .calendar-container {
-        width: 100%;
-        padding: 0 10px;
-        box-sizing: border-box;
-    }
-}
-
 /* Modern Card Styles */
 .card {
     background-color: var(--surface, #ffffff);
@@ -588,26 +536,12 @@ input[type="date"]:focus {
     margin: 40px auto;
 }
 
-@media (max-width: 768px) {
-    .card {
-        padding: 20px;
-        margin: 20px 10px;
-        max-width: calc(100% - 20px);
-    }
-}
-
 /* Login UI */
 .login-card h2 {
     margin-top: 0;
     font-size: 2rem;
     text-align: center;
     color: var(--text-main);
-}
-
-@media (max-width: 768px) {
-    .login-card h2 {
-        font-size: 1.5rem;
-    }
 }
 
 .input-group {
@@ -700,10 +634,12 @@ input[type="date"]:focus {
 
 @media (max-width: 768px) {
     .nav {
-        flex-wrap: wrap;
-        gap: 10px;
-        padding: 10px 15px;
-        justify-content: center;
+        gap: 8px;
+        padding: 12px 15px;
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
     }
 }
 
@@ -717,11 +653,13 @@ input[type="date"]:focus {
 }
 
 @media (max-width: 768px) {
+
     .nav a,
     .nav button,
     .nav p {
-        font-size: 14px;
+        font-size: 16px;
         white-space: nowrap;
+        flex-shrink: 0;
     }
 }
 
@@ -750,12 +688,6 @@ input[type="date"]:focus {
     box-sizing: border-box;
     background-color: #e2e8f0;
     padding: 0;
-}
-
-@media (max-width: 768px) {
-    .SetControls {
-        font-size: 0.9rem;
-    }
 }
 
 .SetControls button {
@@ -801,13 +733,6 @@ input[type="date"]:focus {
     font-weight: 700;
 }
 
-@media (max-width: 768px) {
-    .set-labels {
-        font-size: 0.7rem;
-        padding: 2px 0 1px;
-    }
-}
-
 .label-w,
 .label-r {
     flex: 1;
@@ -847,14 +772,6 @@ td.exercise-name-cell {
     padding: 0 10px;
 }
 
-@media (max-width: 768px) {
-    .exercise-name-content {
-        min-height: 30px;
-        padding: 0 5px;
-        font-size: 0.9rem;
-    }
-}
-
 /* Hide number spin buttons to keep numbers perfectly centered under labels */
 .set-inputs input[type="number"]::-webkit-outer-spin-button,
 .set-inputs input[type="number"]::-webkit-inner-spin-button {
@@ -871,12 +788,6 @@ td.exercise-name-cell {
     width: 100%;
     flex: 1;
     min-height: 40px;
-}
-
-@media (max-width: 768px) {
-    .set-inputs {
-        min-height: 30px;
-    }
 }
 
 .set-inputs .Weight,
@@ -904,13 +815,6 @@ td.exercise-name-cell {
     box-sizing: border-box;
 }
 
-@media (max-width: 768px) {
-    .set-inputs input {
-        min-height: 30px;
-        font-size: 0.9rem;
-    }
-}
-
 .set-inputs input:hover {
     background-color: rgba(0, 0, 0, 0.08);
 }
@@ -932,13 +836,6 @@ td.exercise-name-cell {
     background: transparent;
     font-family: inherit;
     color: var(--text-main);
-}
-
-@media (max-width: 768px) {
-    .textarea {
-        font-size: 0.9rem;
-        padding: 4px;
-    }
 }
 
 .addButton {
@@ -966,75 +863,6 @@ td.exercise-name-cell {
 
 /* Responsive adjustments */
 @media (max-width: 600px) {
-
-    .workout-table th,
-    .addWorkoutTable th {
-        font-size: 0.85rem;
-    }
-
-    .addWorkoutTable th.spanrow {
-        font-size: 1rem;
-        padding: 4px 6px;
-    }
-
-    .workout-table td,
-    .addWorkoutTable td {
-        font-size: 0.75rem;
-        padding: 4px 6px;
-    }
-
-    .addWorkoutTable th button {
-        font-size: 0.85rem;
-    }
-
-    .react-calendar {
-        width: 100%;
-        max-width: 100%;
-        font-size: 0.8rem;
-        margin: 0 auto;
-        padding: 5px;
-    }
-
-    .react-calendar__navigation {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.25rem;
-        margin: 0 auto;
-        padding: 0.5rem 0;
-        width: auto;
-    }
-
-    .react-calendar__navigation__label,
-    .react-calendar__navigation__arrow {
-        font-size: 0.9rem;
-    }
-
-    .react-calendar__navigation__label {
-        flex-grow: 0;
-        text-align: center;
-    }
-
-    .react-calendar__navigation__arrow {
-        cursor: pointer;
-    }
-
-    .react-calendar__tile {
-        font-size: 0.7rem;
-    }
-
-    input[type="date"] {
-        font-size: 0.9rem;
-        width: 100%;
-        max-width: 120px;
-        padding: 2px;
-    }
-
-    input[type="number"] {
-        font-size: 0.8rem;
-        width: 100%;
-    }
-
     .button-container {
         gap: 1rem;
         padding: 5px 10px;
@@ -1067,15 +895,102 @@ td.exercise-name-cell {
     }
 }
 
+/* Create workout vertical table */
+.create-workout-table {
+    width: 420px;
+    max-width: 100%;
+    table-layout: fixed;
+}
+
+.create-workout-table th.NewWorkoutType {
+    width: 150px;
+    white-space: nowrap;
+}
+
+.create-workout-table td.inputCell {
+    width: auto;
+}
+
+/* Name input cell — tall, spans all exercise rows, fills entire cell */
+.create-workout-table td.create-name-cell {
+    padding: 0 !important;
+    min-width: 160px;
+    height: 1px;
+    /* makes height:100% on the input resolve across the rowspan */
+}
+
+.create-workout-table td.create-name-cell .inputText {
+    height: 100%;
+    min-height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+/* Created workouts — dynamic width, fills available space and wraps when needed */
+.created-workouts-table {
+    width: auto;
+    max-width: 100%;
+}
+
+.created-workouts-table td.workout-name-cell {
+    width: 160px;
+    word-break: break-word;
+}
+
+.created-workouts-table th:nth-child(2),
+.created-workouts-table td.exercises-list-cell {
+    width: auto;
+}
+
+.created-workouts-table th:nth-child(3),
+.created-workouts-table td:nth-child(3) {
+    width: 80px;
+}
+
+/* Exercise list items in the created workouts table */
+.exercises-list-cell {
+    padding: 6px 10px !important;
+    vertical-align: top;
+}
+
+.exercise-list-item {
+    padding: 4px 0;
+    text-align: left;
+    font-size: larger;
+    font-weight: bold;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.exercise-list-item:last-child {
+    border-bottom: none;
+}
+
+/* Exercises cell — expands freely, wraps when table hits container edge */
+.workout-table td.exercises-td {
+    white-space: normal;
+    word-break: break-word;
+}
+
+.workout-table tr:nth-child(even) td {
+    background-color: var(--table-row2);
+}
+
+.workout-table tr:nth-child(odd) td {
+    background-color: var(--table-row1);
+}
+
 .btn.btn-secondary {
     background: transparent !important;
     border: none !important;
     box-shadow: none !important;
-
     padding: 0 !important;
     width: fit-content;
     display: inline-block;
-
     transition: transform 0.2s ease;
     transform-origin: center;
 }
