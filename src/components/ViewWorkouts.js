@@ -18,7 +18,7 @@ export default function ViewWorkouts(){
     useEffect(() => {
         const fetchWorkouts = async () => {
             try {
-                const res = await apiFetch(`https://workout-tracker-oluf.onrender.com/workoutLogs`);
+                const res = await apiFetch(`http://muscleup.us-east-1.elasticbeanstalk.com/workoutLogs`);
                 const data = await res.json();
 
                 updateWorkouts(data.Items || []);
@@ -36,7 +36,7 @@ export default function ViewWorkouts(){
     }, [])
 
     const handleDelete = async (workoutId) =>{
-        await apiFetch(`https://workout-tracker-oluf.onrender.com/workoutLogs/${workoutId}`, {
+        await apiFetch(`http://muscleup.us-east-1.elasticbeanstalk.com/workoutLogs/${workoutId}`, {
             method: "DELETE"
         });
 

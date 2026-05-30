@@ -17,7 +17,7 @@ export default function Add_workouts() {
 
         const fetchWorkouts = async () => {
             try {
-                const res =  await apiFetch(`https://workout-tracker-oluf.onrender.com/workouts`);
+                const res =  await apiFetch(`http://muscleup.us-east-1.elasticbeanstalk.com//workouts`);
                 const data = await res.json();
 
                 setWorkouts(data.Items || []);
@@ -92,7 +92,7 @@ export default function Add_workouts() {
     }
 
     const submitTable = async () => {
-        await apiFetch("https://workout-tracker-oluf.onrender.com/workoutLogs", {
+        await apiFetch("http://muscleup.us-east-1.elasticbeanstalk.com/workoutLogs", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(newWorkout)
