@@ -17,7 +17,7 @@ export default function Add_workouts() {
 
         const fetchWorkouts = async () => {
             try {
-                const res =  await apiFetch(`http://muscleup.us-east-1.elasticbeanstalk.com//workouts`);
+                const res =  await apiFetch(`https://api.muscleup.live/workouts`);
                 const data = await res.json();
 
                 setWorkouts(data.Items || []);
@@ -92,7 +92,7 @@ export default function Add_workouts() {
     }
 
     const submitTable = async () => {
-        await apiFetch("http://muscleup.us-east-1.elasticbeanstalk.com/workoutLogs", {
+        await apiFetch("https://api.muscleup.live/workoutLogs", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(newWorkout)
