@@ -5,7 +5,9 @@ import { Link } from "react-router-dom";
 import ResetPassword from '../components/ResetPassword';
 import { getCurrentUser } from 'aws-amplify/auth';
 
+
 export default function Login() {
+    const navigate = useNavigate();
     useEffect(() => {
         const checkUser = async () => {
             try {
