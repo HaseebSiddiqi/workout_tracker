@@ -18,7 +18,7 @@ export default function ViewWorkouts(){
     useEffect(() => {
         const fetchWorkouts = async () => {
             try {
-                const res = await apiFetch(`http://localhost:5000/workoutLogs`);
+                const res = await apiFetch(`https://workout-tracker-oluf.onrender.com/workoutLogs`);
                 const data = await res.json();
 
                 updateWorkouts(data.Items || []);
@@ -36,7 +36,7 @@ export default function ViewWorkouts(){
     }, [])
 
     const handleDelete = async (workoutId) =>{
-        await apiFetch(`http://localhost:5000/workoutLogs/${workoutId}`, {
+        await apiFetch(`https://workout-tracker-oluf.onrender.com/workoutLogs/${workoutId}`, {
             method: "DELETE"
         });
 

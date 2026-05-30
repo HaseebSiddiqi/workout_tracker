@@ -18,7 +18,7 @@ export default function Create_workouts() {
         const fetchWorkouts = async () => {
             try {
                 
-                const res = await apiFetch(`http://localhost:5000/workouts`);
+                const res = await apiFetch(`https://workout-tracker-oluf.onrender.com/workouts`);
                 const data = await res.json();
 
                 setWorkouts(data.Items || []);
@@ -54,7 +54,7 @@ export default function Create_workouts() {
 
         setWorkouts([...workouts, workout]);
 
-        await apiFetch("http://localhost:5000/workouts", {
+        await apiFetch("https://workout-tracker-oluf.onrender.com/workouts", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(workout)
@@ -78,7 +78,7 @@ export default function Create_workouts() {
 
         try {
         const res = await apiFetch(
-            `http://localhost:5000/workouts/${encodeURIComponent(workoutName)}`,
+            `https://workout-tracker-oluf.onrender.com/workouts/${encodeURIComponent(workoutName)}`,
             {
                 method: "DELETE"
             }
