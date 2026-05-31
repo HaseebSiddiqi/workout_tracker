@@ -13,6 +13,11 @@ export default function Add_workouts() {
 
     const [feedback, setFeedback] = useState("");
 
+    const [viewWorkouts, setViewWorkouts] = useState([]);
+    const [latestWorkout, setLatestWorkout] = useState(null);
+
+
+
     useEffect(() => {
 
         const fetchWorkouts = async () => {
@@ -33,35 +38,50 @@ export default function Add_workouts() {
 
 
     const handleClick = (selectWorkout) => {
+
+        const prev = viewWorkouts
+            .filter(w => w.workoutName === selectWorkout.workoutName)
+            .sort((a, b) => new Date(b.date) - new Date(a.date))[0];
+
+        setLatestWorkout(prev || null);
+
         setNewWorkout({
 
             workoutId: Date.now().toString(),
             workoutName: selectWorkout?.workoutName,
             date: new Date().toLocaleDateString("en-CA"),
             notes: "",
-            exercises: selectWorkout?.exercises.map(e => ({
-                name: e,
-                sets: [
-                    {
+            exercises: selectWorkout?.exercises.map(exName => {
+
+                const prevExercise = prev?.exercises?.find(
+                    e => e.name === exName
+                );
+
+                const setCount = prevExercise?.sets?.length || 3;
+
+                return {
+                    name: exName,
+                    sets: Array.from({ length: setCount }).map(() => ({
                         weight: "",
                         reps: ""
-                    },
-                    {
-                        weight: "",
-                        reps: ""
-                    },
-                    {
-                        weight: "",
-                        reps: ""
-
-                    }
-                ] //sets made of weight then reps  can add more sets
-            }))
-
-
-
+                    }))
+                };
+            })
         });
     }
+
+    useEffect(() => {
+        const fetchWorkouts = async () => {
+            const res = await apiFetch(`https://api.muscleup.live/workoutLogs`);
+            const data = await res.json();
+            setViewWorkouts(data.Items || []);
+
+        };
+
+        fetchWorkouts();
+    }, []);
+
+
 
     const addSets = () => {
         setNewWorkout(prevWorkout => {
@@ -106,6 +126,7 @@ export default function Add_workouts() {
         }, 2000)
 
     }
+
 
     return (
         <>
@@ -153,80 +174,89 @@ export default function Add_workouts() {
                                                 <div className="exercise-name-content">{exercise.name}</div>
                                             </div>
                                         </td>
-                                        {exercise.sets.map((set, j) => (
+                                        {exercise.sets.map((set, j) => {
 
+                                            const prevExercise = latestWorkout?.exercises?.find(
+                                                ex => ex.name === exercise.name
+                                            );
 
-                                            <td className='Sets' key={j}>
-                                                <div className="Sets-content">
-                                                    {i === 0 && (
-                                                        <div className="set-labels">
-                                                            <span className="label-w">W</span>
-                                                            <span className="label-r">R</span>
-                                                        </div>
-                                                    )}
-                                                    <div className="set-inputs">
-                                                        <div className='Weight'>
-                                                            <input
-                                                                type="number"
-                                                                min="0"
-                                                                value={set.weight}
-                                                                onChange={(e) =>
-                                                                    setNewWorkout(prev => ({
-                                                                        ...prev,
-                                                                        exercises: prev.exercises.map((ex, exIndex) =>
-                                                                            exIndex === i
-                                                                                ? {
-                                                                                    ...ex,
-                                                                                    sets: ex.sets.map((s, sIndex) =>
-                                                                                        sIndex === j
-                                                                                            ? {
-                                                                                                ...s,
-                                                                                                weight: e.target.value === ""
-                                                                                                    ? ""
-                                                                                                    : Math.max(0, Number(e.target.value))
-                                                                                            }
-                                                                                            : s
-                                                                                    )
-                                                                                }
-                                                                                : ex
-                                                                        )
-                                                                    }))
-                                                                }
-                                                            />
-                                                        </div>
-                                                        <div className='Reps'>
-                                                            <input
-                                                                type="number"
-                                                                min="0"
-                                                                value={set.reps}
-                                                                onChange={(e) =>
-                                                                    setNewWorkout(prev => ({
-                                                                        ...prev,
-                                                                        exercises: prev.exercises.map((ex, exIndex) =>
-                                                                            exIndex === i
-                                                                                ? {
-                                                                                    ...ex,
-                                                                                    sets: ex.sets.map((s, sIndex) =>
-                                                                                        sIndex === j
-                                                                                            ? {
-                                                                                                ...s,
-                                                                                                reps: e.target.value === ""
-                                                                                                    ? ""
-                                                                                                    : Math.max(0, Number(e.target.value))
-                                                                                            }
-                                                                                            : s
-                                                                                    )
-                                                                                }
-                                                                                : ex
-                                                                        )
-                                                                    }))
-                                                                }
-                                                            />
+                                            const prevSet = prevExercise?.sets?.[j];
+
+                                            return (
+                                                <td className='Sets' key={j}>
+                                                    <div className="Sets-content">
+                                                        {i === 0 && (
+                                                            <div className="set-labels">
+                                                                <span className="label-w">W</span>
+                                                                <span className="label-r">R</span>
+                                                            </div>
+                                                        )}
+                                                        <div className="set-inputs">
+                                                            <div className='Weight'>
+                                                                <input
+                                                                    type="number"
+                                                                    min="0"
+                                                                    value={set.weight}
+                                                                    placeholder={prevSet?.weight}
+                                                                    onChange={(e) =>
+                                                                        setNewWorkout(prev => ({
+                                                                            ...prev,
+                                                                            exercises: prev.exercises.map((ex, exIndex) =>
+                                                                                exIndex === i
+                                                                                    ? {
+                                                                                        ...ex,
+                                                                                        sets: ex.sets.map((s, sIndex) =>
+                                                                                            sIndex === j
+                                                                                                ? {
+                                                                                                    ...s,
+                                                                                                    weight: e.target.value === ""
+                                                                                                        ? ""
+                                                                                                        : Math.max(0, Number(e.target.value))
+                                                                                                }
+                                                                                                : s
+                                                                                        )
+                                                                                    }
+                                                                                    : ex
+                                                                            )
+                                                                        }))
+                                                                    }
+                                                                />
+                                                            </div>
+                                                            <div className='Reps'>
+                                                                <input
+                                                                    type="number"
+                                                                    min="0"
+                                                                    value={set.reps}
+                                                                    placeholder={prevSet?.reps}
+                                                                    onChange={(e) =>
+                                                                        setNewWorkout(prev => ({
+                                                                            ...prev,
+                                                                            exercises: prev.exercises.map((ex, exIndex) =>
+                                                                                exIndex === i
+                                                                                    ? {
+                                                                                        ...ex,
+                                                                                        sets: ex.sets.map((s, sIndex) =>
+                                                                                            sIndex === j
+                                                                                                ? {
+                                                                                                    ...s,
+                                                                                                    reps: e.target.value === ""
+                                                                                                        ? ""
+                                                                                                        : Math.max(0, Number(e.target.value))
+                                                                                                }
+                                                                                                : s
+                                                                                        )
+                                                                                    }
+                                                                                    : ex
+                                                                            )
+                                                                        }))
+                                                                    }
+                                                                />
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </td>
-                                        ))}
+                                                </td>
+                                            )
+                                        })}
                                         {i === 0 && (
                                             <td className="notes" rowSpan={newWorkout.exercises.length}>
                                                 <textarea className="textarea" placeholder="Workout notes..." value={newWorkout.notes} onChange={e => setNewWorkout({ ...newWorkout, notes: e.target.value })} />

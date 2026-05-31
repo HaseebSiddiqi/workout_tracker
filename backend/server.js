@@ -117,7 +117,7 @@ app.delete("/workouts/:workoutName", authMiddleware, async (req, res) => {
 // CRUD CALLS FOR WORKOUT LOGS 
 app.post("/workoutLogs", authMiddleware, async (req, res) => {
     try {
-        const { workoutId, workoutName,date, notes, exercises } = req.body;
+        const { workoutId, workoutName, date, notes, exercises } = req.body;
         const username = req.user.username;
 
         const item = {
@@ -146,8 +146,8 @@ app.post("/workoutLogs", authMiddleware, async (req, res) => {
 
 });
 
-app.get("/workoutLogs", authMiddleware, async (req,res) => {
-    try {   
+app.get("/workoutLogs", authMiddleware, async (req, res) => {
+    try {
         const username = req.user.username;
 
         const result = await db.send(
@@ -170,24 +170,24 @@ app.get("/workoutLogs", authMiddleware, async (req,res) => {
 
 app.delete("/workoutLogs/:workoutId", authMiddleware, async (req, res) => {
     try {
-        const {workoutId} = req.params;
+        const { workoutId } = req.params;
         const username = req.user.username;
 
         await db.send(
             new DeleteCommand({
                 TableName: "WorkoutLogs",
                 Key: {
-                    username, 
+                    username,
                     workoutId
                 }
             })
         );
-        res.json({success:true});
-        console.log({workoutId}, "Deleted Successfully");
+        res.json({ success: true });
+        console.log({ workoutId }, "Deleted Successfully");
 
     }
-    catch (err){
+    catch (err) {
         console.error(err);
-        res.status(500).json({error: "Failed to delete workout entry"});
+        res.status(500).json({ error: "Failed to delete workout entry" });
     }
 }); 
