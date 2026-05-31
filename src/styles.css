@@ -1,6 +1,6 @@
 /* Theme variables */
 :root {
-    --bg-main: #f8fafc;
+    --bg-main: #f8fafb;
     --text-main: #0f172a;
     --primary: #f97316;
     --primary-hover: #ea580c;
@@ -197,8 +197,7 @@ body {
 
 /* Add Workout page styles */
 .addWorkoutTable {
-    width: 100%;
-    max-width: 100%;
+    width: max-content;
     margin: 2rem auto;
     border: none;
     border-radius: 12px;
@@ -429,7 +428,7 @@ input[type="date"]:focus {
     font-size: x-large;
     font-weight: bolder;
     color: white;
-    border: 3px solid white;
+    border: 3px var(--bg-main) solid;
     border-radius: 15px;
 }
 
@@ -510,10 +509,9 @@ input[type="date"]:focus {
 /* Containers */
 .table-container {
     width: 100%;
-    margin: 0 auto;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 @media (max-width: 768px) {

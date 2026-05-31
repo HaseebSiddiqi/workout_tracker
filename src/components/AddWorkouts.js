@@ -37,7 +37,7 @@ export default function Add_workouts() {
 
             workoutId: Date.now().toString(),
             workoutName: selectWorkout?.workoutName,
-            date: new Date().toISOString().split("T")[0],
+            date: new Date().toLocaleDateString("en-CA"),
             notes: "",
             exercises: selectWorkout?.exercises.map(e => ({
                 name: e,
@@ -71,7 +71,7 @@ export default function Add_workouts() {
 
                 exercises: prevWorkout.exercises.map(ex => ({
                     ...ex,
-                    sets: [...ex.sets, { weight: 0, reps: 0 }]
+                    sets: [...ex.sets, { weight: "", reps: "" }]
                 }))
             }
         })
