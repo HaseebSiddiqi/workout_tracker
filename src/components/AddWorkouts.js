@@ -22,7 +22,7 @@ export default function Add_workouts() {
 
         const fetchWorkouts = async () => {
             try {
-                const res = await apiFetch(`https://api.muscleup.live/workouts`);
+                const res = await apiFetch(`https://workouttracker-production-4d3e.up.railway.app/workouts`);
                 const data = await res.json();
 
                 setWorkouts(data.Items || []);
@@ -72,7 +72,7 @@ export default function Add_workouts() {
 
     useEffect(() => {
         const fetchWorkouts = async () => {
-            const res = await apiFetch(`https://api.muscleup.live/workoutLogs`);
+            const res = await apiFetch(`https://workouttracker-production-4d3e.up.railway.app/workoutLogs`);
             const data = await res.json();
             setViewWorkouts(data.Items || []);
 
@@ -112,7 +112,7 @@ export default function Add_workouts() {
     }
 
     const submitTable = async () => {
-        await apiFetch("https://api.muscleup.live/workoutLogs", {
+        await apiFetch("https://workouttracker-production-4d3e.up.railway.app/workoutLogs", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(newWorkout)

@@ -18,7 +18,7 @@ export default function ViewWorkouts() {
     useEffect(() => {
         const fetchWorkouts = async () => {
             try {
-                const res = await apiFetch(`https://api.muscleup.live/workoutLogs`);
+                const res = await apiFetch(`https://workouttracker-production-4d3e.up.railway.app/workoutLogs`);
                 const data = await res.json();
 
                 updateWorkouts(data.Items || []);
@@ -36,7 +36,7 @@ export default function ViewWorkouts() {
     }, [])
 
     const handleDelete = async (workoutId) => {
-        await apiFetch(`https://api.muscleup.live/workoutLogs/${workoutId}`, {
+        await apiFetch(`https://workouttracker-production-4d3e.up.railway.app/workoutLogs/${workoutId}`, {
             method: "DELETE"
         });
 

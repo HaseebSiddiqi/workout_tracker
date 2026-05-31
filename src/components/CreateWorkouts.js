@@ -18,7 +18,7 @@ export default function Create_workouts() {
         const fetchWorkouts = async () => {
             try {
 
-                const res = await apiFetch(`https://api.muscleup.live/workouts`);
+                const res = await apiFetch(`https://workouttracker-production-4d3e.up.railway.app/workouts`);
                 const data = await res.json();
 
                 setWorkouts(data.Items || []);
@@ -54,7 +54,7 @@ export default function Create_workouts() {
 
         setWorkouts([...workouts, workout]);
 
-        await apiFetch("https://api.muscleup.live/workouts", {
+        await apiFetch("https://workouttracker-production-4d3e.up.railway.app/workouts", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(workout)
@@ -78,7 +78,7 @@ export default function Create_workouts() {
 
         try {
             const res = await apiFetch(
-                `https://api.muscleup.live/workouts/${encodeURIComponent(workoutName)}`,
+                `https://workouttracker-production-4d3e.up.railway.app/workouts/${encodeURIComponent(workoutName)}`,
                 {
                     method: "DELETE"
                 }
