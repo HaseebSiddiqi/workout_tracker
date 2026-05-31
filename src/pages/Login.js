@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
 import ResetPassword from '../components/ResetPassword';
 import { getCurrentUser } from 'aws-amplify/auth';
-
+import VerifyAccount from '../components/VerifyAccount';
 
 
 export default function Login() {
@@ -25,27 +25,57 @@ export default function Login() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
-    const [resetPassword, setResetPassword] = useState(false);
+    const [showVerify, setShowVerify] = useState(false);
 
+    const [resetPassword, setResetPassword] = useState(false);
     const handleLogin = async (e) => {
         e.preventDefault();
         setError('');
 
         try {
-            // Call the Amplify signIn function with the user's credentials
-            await signIn({ username, password });
-            // Successfully logged in! Redirect the user to the dashboard
+            const res = await signIn({ username, password });
+
+            console.log("SIGNIN RESPONSE:", res);
+
+            // Amplify v6 flow check (IMPORTANT)
+            if (res?.nextStep?.signInStep === "CONFIRM_SIGN_UP") {
+                setResetPassword(false);
+                setError('');
+                setShowVerify(true);
+                return;
+            }
+
             navigate('/home');
         } catch (err) {
-            console.error('Error signing in', err);
-            // Display the error to the user (e.g., incorrect password)
-            setError(err.message);
+            console.log("FULL COGNITO ERROR:", err);
+            console.log("NAME:", err?.name);
+            console.log("CODE:", err?.code);
+            console.log("MESSAGE:", err?.message);
+
+            const message = err?.message?.toLowerCase?.() || '';
+
+            const isUnconfirmed =
+                err?.name === "UserNotConfirmedException" ||
+                err?.code === "UserNotConfirmedException" ||
+                message.includes("not confirmed") ||
+                message.includes("confirmation");
+
+            if (isUnconfirmed) {
+                setError('');
+                setResetPassword(false);
+                setShowVerify(true);
+                return;
+            }
+
+            setError(err?.message || "Login failed");
         }
     };
 
     return (
         <div className="card login-card">
-            {resetPassword ? (
+            {showVerify ? (
+                <VerifyAccount username={username} password={password} onSuccess={() => navigate("/home")} onBack={() => setShowVerify(false)} />
+            ) : resetPassword ? (
                 <ResetPassword onBack={() => setResetPassword(false)} />
             ) : (
                 <>

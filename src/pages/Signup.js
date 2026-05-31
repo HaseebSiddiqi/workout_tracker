@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import { signUp } from "aws-amplify/auth";
 import { Link } from "react-router-dom";
 import VerifyAccount from "../components/VerifyAccount";
+import { useNavigate } from "react-router-dom";
+
 export default function Signup() {
+    const navigate = useNavigate();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
@@ -36,13 +39,13 @@ export default function Signup() {
     return (
         <div className="card login-card">
             {verifyAccount ? (
-                <VerifyAccount username={username} />
+                <VerifyAccount username={username} password={password} onSuccess={() => navigate("/home")} />
             ) : (
                 <>
                     <h2>Sign Up</h2>
 
                     <form onSubmit={handleSignup}>
-                        
+
                         <div className="input-group">
                             <label>Username</label>
                             <input
@@ -81,7 +84,7 @@ export default function Signup() {
 
                         {error && <p className="form-error">{error}</p>}
 
-                        <button type="submit" className="btn btn-primary" style={{marginTop: '10px'}}>Create Account</button>
+                        <button type="submit" className="btn btn-primary" style={{ marginTop: '10px' }}>Create Account</button>
 
                         <p className="text-center">
                             Already have an account? <Link to="/login">Log in</Link>
