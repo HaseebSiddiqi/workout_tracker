@@ -47,6 +47,14 @@ body {
     height: 100vh;
     gap: 10px;
 }
+@media (max-width: 768px) {
+    .pageH {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-auto-rows: auto;
+        height: auto;
+    }
+}
 
 .viewWorkouts {
     grid-column: 1 / 2;
