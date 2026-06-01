@@ -55,11 +55,12 @@ body {
         height: auto;
         gap: 1rem;
     }
+
     .viewWorkouts,
     .workoutTypes,
     .workoutForms {
-        grid-column: 1 / -1;
-        grid-row: auto;
+        grid-column: auto !important;
+        grid-row: auto !important;
     }
 }
 
