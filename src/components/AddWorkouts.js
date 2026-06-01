@@ -3,11 +3,9 @@ import { useState, useEffect } from 'react';
 import { apiFetch } from "./apiClient.js";
 
 
+export default function Add_workouts( { selectedWorkout, onSuccess } ) {
 
 
-export default function Add_workouts() {
-
-    const [workouts, setWorkouts] = useState([]);
 
     const [newWorkout, setNewWorkout] = useState(null);
 
@@ -18,29 +16,14 @@ export default function Add_workouts() {
 
 
 
+
+
     useEffect(() => {
-
-        const fetchWorkouts = async () => {
-            try {
-                const res = await apiFetch(`https://workouttracker-production-4d3e.up.railway.app/workouts`);
-                const data = await res.json();
-
-                setWorkouts(data.Items || []);
-            }
-            catch (err) {
-                console.error(err);
-            }
-        }
-
-        fetchWorkouts();
-
-    }, [])
-
-
-    const handleClick = (selectWorkout) => {
+        if (!selectedWorkout) return;
+        
 
         const prev = viewWorkouts
-            .filter(w => w.workoutName === selectWorkout.workoutName)
+            .filter(w => w.workoutName === selectedWorkout.workoutName)
             .sort((a, b) => new Date(b.date) - new Date(a.date))[0];
 
         setLatestWorkout(prev || null);
@@ -48,10 +31,10 @@ export default function Add_workouts() {
         setNewWorkout({
 
             workoutId: Date.now().toString(),
-            workoutName: selectWorkout?.workoutName,
+            workoutName: selectedWorkout?.workoutName,
             date: new Date().toLocaleDateString("en-CA"),
             notes: "",
-            exercises: selectWorkout?.exercises.map(exName => {
+            exercises: selectedWorkout?.exercises.map(exName => {
 
                 const prevExercise = prev?.exercises?.find(
                     e => e.name === exName
@@ -67,8 +50,9 @@ export default function Add_workouts() {
                     }))
                 };
             })
-        });
-    }
+           
+        }) ;
+    }, [selectedWorkout, viewWorkouts]);
 
     useEffect(() => {
         const fetchWorkouts = async () => {
@@ -85,7 +69,7 @@ export default function Add_workouts() {
 
     const addSets = () => {
         setNewWorkout(prevWorkout => {
-            if (prevWorkout.exercises[0].sets.length >= 8) return prevWorkout;
+            if (prevWorkout.exercises[0].sets.length >= 5) return prevWorkout;
             return {
                 ...prevWorkout,
 
@@ -125,22 +109,16 @@ export default function Add_workouts() {
             setFeedback("");
         }, 2000)
 
+        onSuccess();
+
+
     }
 
 
     return (
         <>
-            <div className='pageH'>
-                <div className='display-workouts'>
-                    <h2>Select a workout</h2>
-
-                    {workouts.map((selectWorkout, index) => (
-                        <div className='display-workout' key={index} onClick={() => handleClick(selectWorkout)}>
-                            {selectWorkout.workoutName}
-
-                        </div>
-                    ))}
-                </div>
+            <div >
+               
                 {feedback && <h2>{feedback}</h2>}
                 {newWorkout && (
                     <div className="table-container">

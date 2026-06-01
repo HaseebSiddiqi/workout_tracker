@@ -41,11 +41,47 @@ body {
 }
 
 .pageH {
-    min-height: 55vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 0fr 1fr;
+    grid-template-rows: 0fr 0fr;
+    height: 100vh;
+    gap: 10px;
+}
+
+.viewWorkouts {
+    grid-column: 1 / 2;
+    grid-row: 1 / 3;   /* left side full height */
+    
+}
+
+.workoutTypes {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;   /* top right */
+}
+.workoutForms{
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;   /* bottom right */
+ 
+}
+
+.rightSide{
+    margin: 2rem;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: var(--drop-shadow);
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border: 1px solid #e2e8f0;
+
+}
+.leftSide{
+    margin: 2rem;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: var(--drop-shadow);
+    padding: 20px;
+    border: 1px solid #e2e8f0;
 }
 
 /* Button utilities */
@@ -83,14 +119,18 @@ body {
 }
 
 /* Workout table styles */
-.workout-table {
-    width: max-content;
-    margin: 4rem auto;
-    border: none;
+.workout-table,
+.addWorkoutTable {
     border-radius: 12px;
     overflow: hidden;
     box-shadow: var(--drop-shadow);
     border-collapse: collapse;
+}
+
+.workout-table {
+    width: max-content;
+    margin: 4rem auto;
+    border: none;
     color: var(--text-main);
     text-align: center;
 }
@@ -197,18 +237,11 @@ body {
 
 /* Add Workout page styles */
 .addWorkoutTable {
-
     width: max-content;
-
     max-width: 100%;
     margin: 2rem auto;
     border: none;
-    border-radius: 12px;
     overflow-x: auto;
-
-
-    box-shadow: var(--drop-shadow);
-    border-collapse: collapse;
 }
 
 .addWorkoutTable th {
@@ -263,6 +296,24 @@ body {
 
 .addWorkoutTable td:nth-child(odd) {
     background-color: var(--table-row1);
+}
+
+.addWorkoutTable tr:first-child th:first-child {
+    border-top-left-radius: 12px;
+}
+
+.addWorkoutTable tr:first-child th:last-child {
+    border-top-right-radius: 12px;
+}
+
+.addWorkoutTable tr:last-child td:first-child,
+.addWorkoutTable tr:last-child th:first-child {
+    border-bottom-left-radius: 12px;
+}
+
+.addWorkoutTable tr:last-child td:last-child,
+.addWorkoutTable tr:last-child th:last-child {
+    border-bottom-right-radius: 12px;
 }
 
 .addWorkoutTable td button {
@@ -542,6 +593,7 @@ input[type="date"]:focus {
     overflow-x: hidden;
     box-sizing: border-box;
     padding: 0;
+  
 }
 
 /* Modern Card Styles */
@@ -911,7 +963,7 @@ td.exercise-name-cell {
 
     .pageC,
     .pageH {
-        margin-top: 1rem;
+        margin-top: 2rem;
     }
 }
 
@@ -1018,3 +1070,16 @@ td.exercise-name-cell {
 .btn.btn-secondary:hover {
     transform: scale(1.25);
 }
+
+
+.workout-name-cell {
+    cursor: pointer !important; 
+    transition: background-color 0.2s ease, color 0.2s ease !important;
+}
+
+.workout-name-cell:hover {
+  
+    background-color: rgba(0, 0, 0, 0.08) !important;
+       
+}
+

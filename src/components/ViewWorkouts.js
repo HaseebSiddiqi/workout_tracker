@@ -3,7 +3,7 @@ import Calendar from "react-calendar";
 import React from "react";
 import { apiFetch } from "./apiClient.js";
 
-export default function ViewWorkouts() {
+export default function ViewWorkouts({refreshKey}) {
 
 
     const [viewWorkouts, updateWorkouts] = useState([]);
@@ -33,7 +33,7 @@ export default function ViewWorkouts() {
         fetchWorkouts();
 
 
-    }, [])
+    }, [refreshKey])
 
     const handleDelete = async (workoutId) => {
         await apiFetch(`https://workouttracker-production-4d3e.up.railway.app/workoutLogs/${workoutId}`, {
@@ -61,7 +61,7 @@ export default function ViewWorkouts() {
     }
     return (
         <>
-
+            <div className="leftSide">
             {viewCalender ? (
                 <div className="calendar-container">
                     <Calendar
@@ -87,7 +87,7 @@ export default function ViewWorkouts() {
                 </div>
 
             ) : (
-
+                <div>
                 <div className="table-container">
                     <table className="addWorkoutTable" >
                         <tbody>
@@ -165,6 +165,10 @@ export default function ViewWorkouts() {
 
                         </tbody>
                     </table>
+                    
+                </div>
+
+                <button className="my-button" onClick={() => updateCalender(true)} >Back to Calendar</button>
                 </div>
 
 
@@ -173,7 +177,7 @@ export default function ViewWorkouts() {
 
             }
             {feedback && <h2>{feedback}</h2>}
-
+            </div>
 
 
 

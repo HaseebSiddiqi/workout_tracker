@@ -7,6 +7,7 @@ import Navbar from "../components/Navbar";
 import CreateWorkouts from "../components/CreateWorkouts";
 import AddWorkouts from "../components/AddWorkouts";
 import ViewWorkouts from "../components/ViewWorkouts";
+import WorkoutTypes from "../components/WorkoutTypes";
 
 
 export default function Home() {
@@ -14,8 +15,17 @@ export default function Home() {
 
     const [username, setUsername] = useState('');
 
+    const [selectedWorkout, setSelectedWorkout] = useState(null);
 
-    const [activeComponent, setActiveComponent] = useState("home");;
+    const [activeComponent, setActiveComponent] = useState("home");
+
+    const [refreshKey, setRefreshKey] = useState(0);
+
+
+
+    const refreshWorkouts = () => {
+        setRefreshKey(prev => prev + 1);
+    };
 
     const handleSignOut = async () => {
         try {
@@ -49,16 +59,32 @@ export default function Home() {
             handleSignOut ={handleSignOut}>
         </Navbar>
      
+        <div className="pageH"> 
+            <div className="viewWorkouts"> 
+                <ViewWorkouts refreshKey={refreshKey}/>
+            </div>
 
-        <div className="pageH">
-            {activeComponent === "home" && <ViewWorkouts/>}
-            {activeComponent === "create" && <CreateWorkouts/>}
+            <div className="rightSide"> 
+                <div className ="workoutTypes" style={{ display: "block" }}>
+                    <WorkoutTypes
+                        onSelectWorkout={setSelectedWorkout}
+                        setActiveComponent={setActiveComponent}
+                        refreshKey={refreshKey}
+                    />
+                </div>
+                <div className="workoutForms"> 
+                <div style={{ display: activeComponent === "add" ? "block" : "none" }}>
+                    <AddWorkouts
+                        selectedWorkout={selectedWorkout}
+                        onSuccess={refreshWorkouts}
+                    />
+                </div>
 
-            {activeComponent === "add" && <AddWorkouts/>}
-        
-            
-
-           
+                <div style={{ display: activeComponent === "create" ? "block" : "none" }}>
+                    <CreateWorkouts onSuccess={refreshWorkouts}/>
+                </div>
+                </div>
+            </div>
         </div>
         </>
     );
