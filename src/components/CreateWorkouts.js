@@ -82,7 +82,7 @@ export default function Create_workouts( {onSuccess}) {
                         <tbody>
                             <tr>
                                 <td className='spanrow2' colSpan={2}>
-                                    <h2>Create a Workout</h2>
+                                    <h2>Create Workout Type</h2>
                                 </td>
                             </tr>
                             <tr>

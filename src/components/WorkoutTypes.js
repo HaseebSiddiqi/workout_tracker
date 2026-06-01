@@ -53,7 +53,11 @@ export default function WorkoutTypes({onSelectWorkout, setActiveComponent, refre
             console.error("Error deleting workout:", err);
         }
     };
-
+    useEffect(() => {
+        if (workouts.length === 0) {
+            setActiveComponent("create");
+        }
+    }, [workouts, setActiveComponent]);
 
 
     return (
@@ -61,7 +65,7 @@ export default function WorkoutTypes({onSelectWorkout, setActiveComponent, refre
             
 
             <div className="table-container">
-                {workouts.length > 0 && (
+                {workouts.length > 0 ? (
                     <table className="workout-table created-workouts-table">
                         <tbody>
                             <tr>
@@ -86,24 +90,26 @@ export default function WorkoutTypes({onSelectWorkout, setActiveComponent, refre
                                     <td className="exercises-td">
                                         {workout.exercises.join(" | ")}
                                     </td>
-                                    <td>
-                                        <button onClick={() => deleteWorkout(i)}>
-                                            ❌
-                                        </button>
+                                    <td className="workout-name-cell" onClick={() => deleteWorkout(i)}>
+                                        ❌
                                     </td>
                                 </tr>
                             ))}
                             <tr>
                                 <td  className='submitbtn' colSpan={3}>
-                                    <button onClick={() => {onSelectWorkout(null); setActiveComponent("create");}}>
+                                   <button  onClick={() => {onSelectWorkout(null); setActiveComponent("create");}}>
                                         Add Workout Type
                                     </button>
                                 </td>
                             </tr>
                         </tbody>
-                    </table>
+                    </table> 
+                ):(
+                    <h2>Add your first workout type!</h2>
                 )}
+                
             </div>
+            
             {feedback && <h2>{feedback}</h2>}
         </>
     );
