@@ -78,7 +78,7 @@ export default function WorkoutTypes({onSelectWorkout, setActiveComponent, refre
                             </tr>
 
                             <tr>
-                                <th>Workouts</th>
+                                <th>Name</th>
                                 <th>Exercises</th>
                                 <th>Delete</th>
                             </tr>

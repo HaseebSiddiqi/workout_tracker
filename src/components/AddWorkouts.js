@@ -102,16 +102,13 @@ export default function Add_workouts( { selectedWorkout, onSuccess } ) {
             body: JSON.stringify(newWorkout)
         });
 
-        setNewWorkout(null);
+        setFeedback("Workout Added!");
 
-        setFeedback("Workout Added!")
         setTimeout(() => {
             setFeedback("");
-        }, 2000)
-
-        onSuccess();
-
-
+            setNewWorkout(null);
+            onSuccess();
+        }, 2000);
     }
 
 
@@ -174,6 +171,7 @@ export default function Add_workouts( { selectedWorkout, onSuccess } ) {
                                                                 <input
                                                                     type="number"
                                                                     min="0"
+                                                                    max="999"
                                                                     value={set.weight}
                                                                     placeholder={prevSet?.weight}
                                                                     onChange={(e) =>
@@ -189,7 +187,9 @@ export default function Add_workouts( { selectedWorkout, onSuccess } ) {
                                                                                                     ...s,
                                                                                                     weight: e.target.value === ""
                                                                                                         ? ""
-                                                                                                        : Math.max(0, Number(e.target.value))
+                                                                                                        : Math.min(999,
+                                                                                                            Math.max(0, Number(e.target.value))
+                                                                                                            )
                                                                                                 }
                                                                                                 : s
                                                                                         )
@@ -204,6 +204,7 @@ export default function Add_workouts( { selectedWorkout, onSuccess } ) {
                                                                 <input
                                                                     type="number"
                                                                     min="0"
+                                                                    max="999"
                                                                     value={set.reps}
                                                                     placeholder={prevSet?.reps}
                                                                     onChange={(e) =>
@@ -219,8 +220,12 @@ export default function Add_workouts( { selectedWorkout, onSuccess } ) {
                                                                                                     ...s,
                                                                                                     reps: e.target.value === ""
                                                                                                         ? ""
-                                                                                                        : Math.max(0, Number(e.target.value))
+                                                                                                        : Math.min(999,
+                                                                                                            Math.max(0, Number(e.target.value))
+                                                                                                            ) 
                                                                                                 }
+                                                                                                        
+                                                                                                
                                                                                                 : s
                                                                                         )
                                                                                     }

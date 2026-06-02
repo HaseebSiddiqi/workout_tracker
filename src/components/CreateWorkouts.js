@@ -93,6 +93,7 @@ export default function Create_workouts( {onSuccess}) {
                                 <td className="inputCell create-name-cell" rowSpan={exercises.length}>
                                     <input
                                         value={workoutNameInput}
+                                        maxLength={20}
                                         onChange={e => setWorkoutNameInput(e.target.value)}
                                         className="inputText"
                                         placeholder="Workout name…"
@@ -101,6 +102,7 @@ export default function Create_workouts( {onSuccess}) {
                                 <td className="inputCell">
                                     <input
                                         value={exercises[0]}
+                                        maxLength={20}
                                         onChange={e => {
                                             const newExercises = [...exercises];
                                             newExercises[0] = e.target.value;
@@ -116,6 +118,7 @@ export default function Create_workouts( {onSuccess}) {
                                     <td className="inputCell">
                                         <input
                                             value={exercise}
+                                            maxLength={20}
                                             onChange={e => {
                                                 const newExercises = [...exercises];
                                                 newExercises[i + 1] = e.target.value;

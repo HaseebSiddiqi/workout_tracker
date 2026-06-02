@@ -85,7 +85,7 @@ body {
 /* Workout table styles */
 .workout-table {
     width: max-content;
-    margin: 4rem auto;
+    margin: 1rem auto;
     border: none;
     border-radius: 12px;
     overflow: hidden;
@@ -201,7 +201,7 @@ body {
     width: max-content;
 
     max-width: 100%;
-    margin: 2rem auto;
+    margin: 1rem auto;
     border: none;
     border-radius: 12px;
     overflow-x: auto;
@@ -920,6 +920,7 @@ td.exercise-name-cell {
     width: 420px;
     max-width: 100%;
     table-layout: fixed;
+    margin: 1rem auto;
 }
 
 .create-workout-table th.NewWorkoutType {
@@ -1031,18 +1032,16 @@ td.exercise-name-cell {
        
 }
 
-.leftSide{
-    
-}
 
 .pageH {
+    min-height: auto;
     display: grid;
     align-items: start;
     grid-template-columns: auto;
     grid-auto-rows: auto;
     gap: 1rem;
     
-    margin-top: 2rem;
+    margin-top: 1rem;
   
 }
 
@@ -1100,28 +1099,34 @@ td.exercise-name-cell {
     .pageH {
         grid-template-columns: auto 1fr;
         grid-template-rows: auto auto;
-        
+        min-height: auto;
+        align-content: start;
+        margin-top: 0;
+    }
+
+    .viewWorkouts,
+    .workoutTypes,
+    .workoutForms,
+    .createWorkout,
+    .addWorkout {
+        align-self: start;
     }
 
     .viewWorkouts {
         grid-column: 1 / 2;
         grid-row: 1 / -1;
-        padding: 30px; 
-       
-        
+        padding: 30px;
     }
 
     .workoutTypes {
         grid-column: 2 / 3;
         grid-row: 1 / 2;
         padding: 30px;
-        
     }
 
     .workoutForms {
         grid-column: 2 / 3;
-        grid-row: 2/3;
-        
+        grid-row: 2 / 3 ;
     }
     .createWorkout{
         padding: 30px;
@@ -1130,7 +1135,6 @@ td.exercise-name-cell {
     .addWorkout{
         padding: 30px;
         display: inline-block;
-        
     }
 }
 
@@ -1168,4 +1172,15 @@ td.exercise-name-cell {
 .addWorkoutTable tr:last-child td:last-child,
 .addWorkoutTable tr:last-child th:last-child {
     border-bottom-right-radius: 12px;
+}
+
+
+.created-workouts-table th:nth-child(1),
+.created-workouts-table td:nth-child(1) {
+    width: 120px;
+}
+
+.created-workouts-table th:nth-child(3),
+.created-workouts-table td:nth-child(3) {
+    width: 120px;
 }

@@ -49,8 +49,6 @@ export default function Home() {
 
     }, []);
 
-
-
     return (
         <> 
         <Navbar 
@@ -76,7 +74,10 @@ export default function Home() {
                 <div className="addWorkout" style={{ display: activeComponent === "add" ? "block" : "none" }}>
                     <AddWorkouts
                         selectedWorkout={selectedWorkout}
-                        onSuccess={refreshWorkouts}
+                        onSuccess={() => {
+                            refreshWorkouts();
+                            setActiveComponent("home");
+                        }}
                     />
                 </div>
 
