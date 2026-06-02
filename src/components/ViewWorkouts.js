@@ -61,7 +61,7 @@ export default function ViewWorkouts({refreshKey}) {
     }
     return (
         <>
-            <div className="leftSide">
+            
             {viewCalender ? (
                 <div className="calendar-container">
                     <Calendar
@@ -177,7 +177,7 @@ export default function ViewWorkouts({refreshKey}) {
 
             }
             {feedback && <h2>{feedback}</h2>}
-            </div>
+            
 
 
 

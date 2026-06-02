@@ -64,7 +64,7 @@ export default function Home() {
                 <ViewWorkouts refreshKey={refreshKey}/>
             </div>
 
-            <div className="rightSide"> 
+        
                 <div className ="workoutTypes" style={{ display: "block" }}>
                     <WorkoutTypes
                         onSelectWorkout={setSelectedWorkout}
@@ -73,19 +73,19 @@ export default function Home() {
                     />
                 </div>
                 <div className="workoutForms"> 
-                <div style={{ display: activeComponent === "add" ? "block" : "none" }}>
+                <div className="addWorkout" style={{ display: activeComponent === "add" ? "block" : "none" }}>
                     <AddWorkouts
                         selectedWorkout={selectedWorkout}
                         onSuccess={refreshWorkouts}
                     />
                 </div>
 
-                <div style={{ display: activeComponent === "create" ? "block" : "none" }}>
+                <div className="createWorkout"style={{ display: activeComponent === "create" ? "block" : "none" }}>
                     <CreateWorkouts onSuccess={refreshWorkouts}/>
                 </div>
                 </div>
             </div>
-        </div>
+        
         </>
     );
 }
