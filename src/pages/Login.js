@@ -79,7 +79,7 @@ export default function Login() {
                 <ResetPassword onBack={() => setResetPassword(false)} />
             ) : (
                 <>
-                    <h2>Log In</h2>
+                    <h2>Log In To Muscle Up!</h2>
                     <form onSubmit={handleLogin}>
 
                         <div className="input-group">
@@ -120,6 +120,9 @@ export default function Login() {
                     </form>
                 </>
             )}
+            <div style={{ fontSize: "10px", opacity: 0.5, textAlign: "center" }}>
+            Icon by Freepik (Flaticon)
+            </div>
         </div>
     )
 }

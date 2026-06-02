@@ -556,6 +556,11 @@ input[type="date"]:focus {
     margin: 40px auto;
 }
 
+.card.login-card {
+    margin: auto;
+    position: relative;
+}
+
 /* Login UI */
 .login-card h2 {
     margin-top: 0;
@@ -670,6 +675,19 @@ input[type="date"]:focus {
     font-size: 28px;
     font-weight: bold;
     transition: color 0.3s ease;
+}
+@media (max-width: 768px) {
+    body {
+        zoom: 0.7;
+    }
+
+    .card.login-card {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        margin: 0;
+    }
 }
 
 @media (max-width: 768px) {

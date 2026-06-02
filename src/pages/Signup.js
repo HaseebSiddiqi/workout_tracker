@@ -42,7 +42,7 @@ export default function Signup() {
                 <VerifyAccount username={username} password={password} onSuccess={() => navigate("/home")} />
             ) : (
                 <>
-                    <h2>Sign Up</h2>
+                    <h2>Sign Up to Muscle Up!</h2>
 
                     <form onSubmit={handleSignup}>
 
