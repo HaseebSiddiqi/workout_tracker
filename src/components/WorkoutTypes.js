@@ -3,6 +3,7 @@ import { apiFetch } from "./apiClient.js";
 
 export default function WorkoutTypes({onSelectWorkout, setActiveComponent, refreshKey}) {
     const [workouts, setWorkouts] = useState([]);
+    const [loaded, setLoaded] = useState(false);
 
     const [feedback, setFeedback] = useState("");
 
@@ -18,6 +19,8 @@ export default function WorkoutTypes({onSelectWorkout, setActiveComponent, refre
                 setWorkouts(data.Items || []);
             } catch (err) {
                 console.error(err);
+            } finally {
+                setLoaded(true);
             }
         };
 
@@ -54,10 +57,10 @@ export default function WorkoutTypes({onSelectWorkout, setActiveComponent, refre
         }
     };
     useEffect(() => {
-        if (workouts.length === 0) {
+        if (loaded && workouts.length === 0) {
             setActiveComponent("create");
         }
-    }, [workouts, setActiveComponent]);
+    }, [loaded, workouts, setActiveComponent]);
 
 
     return (
