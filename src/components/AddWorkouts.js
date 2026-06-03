@@ -242,7 +242,7 @@ export default function Add_workouts( { selectedWorkout, onSuccess } ) {
                                         })}
                                         {i === 0 && (
                                             <td className="notes" rowSpan={newWorkout.exercises.length}>
-                                                <textarea className="textarea" placeholder="Workout notes..." value={newWorkout.notes} onChange={e => setNewWorkout({ ...newWorkout, notes: e.target.value })} />
+                                                <textarea className="textarea" placeholder={ latestWorkout?.notes ?? "Workout notes..."} value={newWorkout.notes} onChange={e => setNewWorkout({ ...newWorkout, notes: e.target.value })} />
                                             </td>
                                         )}
 
@@ -265,6 +265,7 @@ export default function Add_workouts( { selectedWorkout, onSuccess } ) {
                                 </tr>
                             </tbody>
                         </table>
+                        
                     </div>
                 )}
 

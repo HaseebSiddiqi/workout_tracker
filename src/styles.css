@@ -377,6 +377,7 @@ input[type="date"]:focus {
     font-weight: bolder;
     padding: 10px;
     box-sizing: border-box;
+    cursor:default;
 }
 
 /* NAVIGATION BAR (month + arrows centered) */
@@ -389,7 +390,7 @@ input[type="date"]:focus {
     width: 100%;
     margin: 0 auto;
     padding: 10px 0;
-
+    cursor: default;
     position: relative;
 }
 
@@ -402,6 +403,7 @@ input[type="date"]:focus {
     font-weight: bolder;
     color: var(--text-main);
     padding: 6px 10px;
+   
 }
 
 /* Month label centered */
@@ -413,6 +415,7 @@ input[type="date"]:focus {
     background: transparent;
     border: none;
     color: var(--text-main);
+    cursor: default !important;
 }
 
 .react-calendar__navigation__prev-button,
@@ -434,6 +437,8 @@ input[type="date"]:focus {
     color: white;
     border: 3px var(--bg-main) solid;
     border-radius: 15px;
+    
+
 }
 
 .react-calendar__tile:hover {
@@ -1202,3 +1207,42 @@ td.exercise-name-cell {
 .created-workouts-table td:nth-child(3) {
     width: 120px;
 }
+
+.blue-square {
+    display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-color: var(--secondary);
+  border-radius: 3px;
+  vertical-align: middle;
+  margin-left: 30px;
+  margin-right: 5px;
+}
+
+.orange-square {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-color: var(--primary);
+  border-radius: 3px;
+  vertical-align: middle;
+  
+  margin-left: 30px;
+  margin-right: 5px;
+}
+
+.legend {
+  display: flex;
+  flex-direction: column; /* stack items */
+  align-items: flex-start; /* left align */
+  font-size: 14px;
+  
+}
+.legend-hint{
+    
+    font-size: 12px;
+    color: #888;
+    margin: 0;
+    margin-left: 30px;
+}
+

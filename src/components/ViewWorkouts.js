@@ -62,9 +62,12 @@ export default function ViewWorkouts({refreshKey}) {
     return (
         <>
             
-            {viewCalender ? (
+            {viewCalender ? ( <div> 
                 <div className="calendar-container">
                     <Calendar
+                        view ="month"
+                        minDetail="month"
+                        maxDetail="month"
                         showFixedNumberOfWeeks={true}
                         onClickDay={(date) => {
                             if (isWorkout(date)) {
@@ -84,6 +87,17 @@ export default function ViewWorkouts({refreshKey}) {
                         }
 
                     />
+                   
+                </div>  
+                        <div className="Calander bottom ">
+                                <div className="legend">
+                                    <p> <span className="orange-square"></span>  No Session </p> 
+                                    <p> <span className="blue-square"></span> Workout Logged  </p>
+                                    <p className="legend-hint">
+                                        Click blue days to view details
+                                    </p>
+                                </div>
+                        </div>
                 </div>
 
             ) : (

@@ -69,6 +69,7 @@ export default function WorkoutTypes({onSelectWorkout, setActiveComponent, refre
 
             <div className="table-container">
                 {workouts.length > 0 ? (
+                     <div>
                     <table className="workout-table created-workouts-table">
                         <tbody>
                             <tr>
@@ -107,8 +108,10 @@ export default function WorkoutTypes({onSelectWorkout, setActiveComponent, refre
                             </tr>
                         </tbody>
                     </table> 
+                    <h2>Select A Workout Type To Log Your Workouts</h2>
+                    </div>
                 ):(
-                    <h2>Add your first workout type!</h2>
+                    <h2>Add Your First Workout Type To Get Started</h2>
                 )}
                 
             </div>
