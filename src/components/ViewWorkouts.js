@@ -164,7 +164,16 @@ export default function ViewWorkouts({refreshKey}) {
                                         ))}
 
                                         <tr>
-                                            <th className="spanrow2" colSpan={5}>  <button onClick={() => handleDelete(w.workoutId)} > Delete</button></th>
+                                            <th className="spanrow2" colSpan={5}>  
+                                                <button onClick={() => {
+                                                    const confirmed = window.confirm("Delete this workout?");
+                                                    if (confirmed) {
+                                                        handleDelete(w.workoutId);
+                                                    }
+                                                }} > Delete
+                                                
+                                                </button>
+                                            </th>
                                         </tr>
                                         {index < arr.length - 1 && (
                                             <tr className="workout-spacer-row">

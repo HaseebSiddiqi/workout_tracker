@@ -50,14 +50,18 @@ export default function Home() {
 
     }, []);
 
-   useEffect(() => {
-    if (activeComponent === "add" || activeComponent === "create") {
-        bottomRef.current?.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-        });
-    }
-}, [activeComponent]);
+    useEffect(() => {
+        if (activeComponent === "add" || activeComponent === "create") {
+            requestAnimationFrame(() => {
+                setTimeout(() => {
+                    bottomRef.current?.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
+                    });
+                }, 0);
+            });
+        }
+    }, [activeComponent]);
 
     return (
         <> 
