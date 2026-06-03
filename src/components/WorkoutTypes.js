@@ -94,7 +94,10 @@ export default function WorkoutTypes({onSelectWorkout, setActiveComponent, refre
                                     <td className="exercises-td">
                                         {workout.exercises.join(" | ")}
                                     </td>
-                                    <td className="workout-name-cell" onClick={() => deleteWorkout(i)}>
+                                    <td className="workout-name-cell" onClick={() => 
+                                                    {const confirmed = window.confirm("Delete this workout?");
+                                                        if (confirmed) {deleteWorkout(i);}
+                                                    }}>
                                         ❌
                                     </td>
                                 </tr>
@@ -108,7 +111,7 @@ export default function WorkoutTypes({onSelectWorkout, setActiveComponent, refre
                             </tr>
                         </tbody>
                     </table> 
-                    <h4>Select A Workout Type To Log Your Workouts</h4>
+                    <h3>Select A Workout Type To Log Your Workouts</h3>
                     </div>
                 ):(
                     <h3>Add Your First Workout Type To Get Started</h3>
