@@ -1,70 +1,35 @@
-# Getting Started with Create React App
+========================================================================================================================
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Muscle Up | Workout Tracker
 
-## Available Scripts
+Muscleup.live
+========================================================================================================================
+Summary: 
 
-In the project directory, you can run:
+Muscle Up is a full-stack workout tracking web application designed to help users log workouts and visualize training consistency over time.
 
-### `npm start`
+The project was inspired by my own experience using spreadsheets to track workouts, which became tedious and error-prone as workout structures changed and formatting issues made tracking inefficient.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Muscle Up provides a simple and responsive interface for creating workouts, logging sets and reps, and reviewing training history across mobile and desktop devices. The goal is to make workout tracking more structured, flexible, and consistent, enabling users to clearly understand their training volume and progress over time. 
+========================================================================================================================
+Features: 
+- Users can create workout templates (workout types), allowing fast logging by entering sets, reps, and optional notes during each session
+- When logging a workout, users can view their previous workout as a reference to help maintain training consistency and goals
+- Calendar visualization highlights completed workout days in blue, enabling users to track training consistency over time
+- Users can click on highlighted calendar days to view detailed workout history for that specific date
+- Secure account system allows users to access their workouts across multiple devices
+- Users can delete workouts as needed to maintain and manage their workout history
+========================================================================================================================
+Architecture Overview
+========================================================================================================================
+Muscle Up is a full-stack web application built with a React frontend and a Node.js/Express backend, integrated with AWS Cognito for authentication and DynamoDB for persistent data storage. The system is designed around secure, user-specific REST APIs that enable cross-device workout tracking and real-time data persistence.
+========================================================================================================================
+Tech Stack
+========================================================================================================================
+- Frontend: React, deployed on Vercel for fast and reliable client-side hosting
+- Backend: Node.js with Express.js, deployed on Railway to handle API requests, authentication-aware routing, and core application logic including workout CRUD operations, data validation, and user-specific data handling
+- Authentication: AWS Cognito for secure user sign-up, login, and account management, ensuring user data privacy
+- Database: AWS DynamoDB for scalable storage and retrieval of user workouts, enabling cross-device access
+- API Layer: Express.js exposes secure REST API endpoints that connect the frontend with AWS services (Cognito and DynamoDB) and enforce user-level access control
+  
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
