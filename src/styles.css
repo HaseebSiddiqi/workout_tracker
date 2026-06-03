@@ -529,6 +529,7 @@ input[type="date"]:focus {
 @media (max-width: 768px) {
     .table-container {
         padding: 0 4px;
+        
     }
 
     .table-container .workout-table,
@@ -1077,6 +1078,7 @@ td.exercise-name-cell {
     width: fit-content;
     height: fit-content;
     margin: 15px;
+    justify-self: center;
    
 }
 .workoutTypes {
@@ -1139,6 +1141,7 @@ td.exercise-name-cell {
         grid-column: 1 / 2;
         grid-row: 1 / -1;
         padding: 30px;
+        
     }
 
     .workoutTypes {

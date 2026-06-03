@@ -108,10 +108,10 @@ export default function WorkoutTypes({onSelectWorkout, setActiveComponent, refre
                             </tr>
                         </tbody>
                     </table> 
-                    <h2>Select A Workout Type To Log Your Workouts</h2>
+                    <h4>Select A Workout Type To Log Your Workouts</h4>
                     </div>
                 ):(
-                    <h2>Add Your First Workout Type To Get Started</h2>
+                    <h3>Add Your First Workout Type To Get Started</h3>
                 )}
                 
             </div>

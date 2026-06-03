@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { signOut } from "aws-amplify/auth";
 import { getCurrentUser } from 'aws-amplify/auth';
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+
 
 import Navbar from "../components/Navbar";
 import CreateWorkouts from "../components/CreateWorkouts";
@@ -21,7 +22,7 @@ export default function Home() {
 
     const [refreshKey, setRefreshKey] = useState(0);
 
-
+    const bottomRef = useRef(null);
 
     const refreshWorkouts = () => {
         setRefreshKey(prev => prev + 1);
@@ -49,6 +50,15 @@ export default function Home() {
 
     }, []);
 
+   useEffect(() => {
+    if (activeComponent === "add" || activeComponent === "create") {
+        bottomRef.current?.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    }
+}, [activeComponent]);
+
     return (
         <> 
         <Navbar 
@@ -71,7 +81,8 @@ export default function Home() {
                     />
                 </div>
                 <div className="workoutForms"> 
-                <div className="addWorkout" style={{ display: activeComponent === "add" ? "block" : "none" }}>
+                    
+                <div ref={activeComponent === "add" ? bottomRef : null} className="addWorkout" style={{ display: activeComponent === "add" ? "block" : "none" }}>
                     <AddWorkouts
                         selectedWorkout={selectedWorkout}
                         onSuccess={() => {
@@ -81,7 +92,7 @@ export default function Home() {
                     />
                 </div>
 
-                <div className="createWorkout"style={{ display: activeComponent === "create" ? "block" : "none" }}>
+                <div ref={activeComponent === "create" ? bottomRef : null} className="createWorkout"style={{ display: activeComponent === "create" ? "block" : "none" }}>
                     <CreateWorkouts onSuccess={refreshWorkouts}/>
                 </div>
                 </div>
