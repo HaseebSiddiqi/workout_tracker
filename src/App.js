@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import { Analytics } from '@vercel/analytics/react';
 import Home from './pages/Home'
 import NoPage from './pages/NoPage'
 import Login from "./pages/Login";
@@ -23,6 +24,7 @@ function App() {
         </Routes>
 
       </div>
+      <Analytics />
     </>
   );
 }
