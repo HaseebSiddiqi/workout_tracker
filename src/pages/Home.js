@@ -64,44 +64,45 @@ export default function Home() {
     }, [activeComponent]);
 
     return (
-        <> 
-        <Navbar 
-            username = {username}
-            setActiveComponent={setActiveComponent}
-            handleSignOut ={handleSignOut}>
-        </Navbar>
-     
-        <div className="pageH"> 
-            <div className="viewWorkouts"> 
-                <ViewWorkouts refreshKey={refreshKey}/>
-            </div>
+        <>
+            <Navbar
+                username={username}
+                setActiveComponent={setActiveComponent}
+                handleSignOut={handleSignOut}>
+            </Navbar>
 
-        
-                <div className ="workoutTypes" style={{ display: "block" }}>
+            <div className="pageH">
+                <div className="viewWorkouts">
+                    <ViewWorkouts refreshKey={refreshKey} />
+                </div>
+
+                <div className="workoutForms">
+
+                    <div ref={activeComponent === "add" ? bottomRef : null} className="addWorkout" style={{ display: activeComponent === "add" ? "block" : "none" }}>
+                        <AddWorkouts
+                            selectedWorkout={selectedWorkout}
+                            onSuccess={() => {
+                                refreshWorkouts();
+                                setActiveComponent("home");
+                            }}
+                        />
+                    </div>
+
+                    <div ref={activeComponent === "create" ? bottomRef : null} className="createWorkout" style={{ display: activeComponent === "create" ? "block" : "none" }}>
+                        <CreateWorkouts onSuccess={refreshWorkouts} />
+                    </div>
+                </div>
+
+                <div className="workoutTypes" style={{ display: "block" }}>
                     <WorkoutTypes
                         onSelectWorkout={setSelectedWorkout}
                         setActiveComponent={setActiveComponent}
                         refreshKey={refreshKey}
                     />
                 </div>
-                <div className="workoutForms"> 
-                    
-                <div ref={activeComponent === "add" ? bottomRef : null} className="addWorkout" style={{ display: activeComponent === "add" ? "block" : "none" }}>
-                    <AddWorkouts
-                        selectedWorkout={selectedWorkout}
-                        onSuccess={() => {
-                            refreshWorkouts();
-                            setActiveComponent("home");
-                        }}
-                    />
-                </div>
 
-                <div ref={activeComponent === "create" ? bottomRef : null} className="createWorkout"style={{ display: activeComponent === "create" ? "block" : "none" }}>
-                    <CreateWorkouts onSuccess={refreshWorkouts}/>
-                </div>
-                </div>
             </div>
-            
+
         </>
     );
 }
