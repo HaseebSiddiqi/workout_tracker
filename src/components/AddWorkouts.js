@@ -69,7 +69,7 @@ export default function Add_workouts( { selectedWorkout, onSuccess } ) {
 
     const addSets = () => {
         setNewWorkout(prevWorkout => {
-            if (prevWorkout.exercises[0].sets.length >= 5) return prevWorkout;
+            if (prevWorkout.exercises[0].sets.length >= 4) return prevWorkout;
             return {
                 ...prevWorkout,
 

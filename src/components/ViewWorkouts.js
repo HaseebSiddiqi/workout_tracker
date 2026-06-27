@@ -107,7 +107,7 @@ export default function ViewWorkouts({refreshKey}) {
                         <tbody>
 
                             <tr>
-                                <th className="spanrow" colSpan={5} >{currentDate?.toISOString().split("T")[0]}</th>
+                                <th className="spanrow" colSpan={99} >{currentDate?.toISOString().split("T")[0]}</th>
                             </tr>
                             {viewWorkouts
                                 .filter(w => w.date === currentDate?.toISOString().split("T")[0])
@@ -164,7 +164,7 @@ export default function ViewWorkouts({refreshKey}) {
                                         ))}
 
                                         <tr>
-                                            <th className="spanrow2" colSpan={5}>  
+                                            <th className="spanrow2" colSpan={99}>  
                                                 <button onClick={() => {
                                                     const confirmed = window.confirm("Delete this workout?");
                                                     if (confirmed) {
