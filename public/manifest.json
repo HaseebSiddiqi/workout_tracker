@@ -3,7 +3,7 @@
   "name": "Muscle Up - Workout Tracker",
   "icons": [
     {
-      "src": "strong.png",
+      "src": "strong-icon.png",
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "any maskable"
