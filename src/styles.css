@@ -193,6 +193,7 @@ body {
     border: 0px;
     font-size: large;
     background-color: transparent;
+    text-align: center;
 }
 
 /* Add Workout page styles */
@@ -1257,4 +1258,9 @@ td.exercise-name-cell {
     color: #888;
     margin: 0;
     margin-left: 30px;
+}
+
+.create-name-cell .inputText {
+    height: 60px !important;
+    font-size: larger;
 }

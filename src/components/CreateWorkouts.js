@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { apiFetch } from "./apiClient.js";
 
-export default function Create_workouts( {onSuccess}) {
+export default function Create_workouts({ onSuccess }) {
 
 
     const [workouts, setWorkouts] = useState([]);
@@ -72,91 +72,94 @@ export default function Create_workouts( {onSuccess}) {
 
     }
 
-    
+
 
     return (
         <>
             {feedback && <h2>{feedback}</h2>}
-                <div className="table-container">
-                    <table className="workout-table create-workout-table">
-                        <tbody>
-                            <tr>
-                                <td className='spanrow2' colSpan={2}>
-                                    <h2>Create Workout Type</h2>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th className="NewWorkoutType">Workout Name</th>
-                                <th className="NewWorkoutType">Exercises</th>
-                            </tr>
-                            <tr>
-                                <td className="inputCell create-name-cell" rowSpan={exercises.length}>
+            <div className="table-container">
+                <table className="workout-table create-workout-table">
+                    <tbody>
+                        <tr>
+                            <td className='spanrow2' colSpan={4}>
+                                <h2>Create Workout Type</h2>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td className="inputCell create-name-cell" colSpan={4}>
+                                <input
+                                    value={workoutNameInput}
+                                    maxLength={20}
+                                    onChange={e => setWorkoutNameInput(e.target.value)}
+                                    className="inputText"
+                                    placeholder="Workout Name…"
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th className="NewWorkoutType" colSpan={4}>Exercises</th>
+                        </tr>
+                        <tr>
+                            <td className="inputCell" colSpan={4}>
+                                <input
+                                    value={exercises[0]}
+                                    maxLength={20}
+                                    onChange={e => {
+                                        const newExercises = [...exercises];
+                                        newExercises[0] = e.target.value;
+                                        setExercises(newExercises);
+                                    }}
+                                    className="inputText"
+                                    placeholder="Exercise 1…"
+                                />
+
+                            </td>
+                        </tr>
+                        {exercises.slice(1).map((exercise, i) => (
+                            <tr key={i + 1}>
+                                <td className="inputCell" colSpan={4}>
                                     <input
-                                        value={workoutNameInput}
-                                        maxLength={20}
-                                        onChange={e => setWorkoutNameInput(e.target.value)}
-                                        className="inputText"
-                                        placeholder="Workout name…"
-                                    />
-                                </td>
-                                <td className="inputCell">
-                                    <input
-                                        value={exercises[0]}
+                                        value={exercise}
                                         maxLength={20}
                                         onChange={e => {
                                             const newExercises = [...exercises];
-                                            newExercises[0] = e.target.value;
+                                            newExercises[i + 1] = e.target.value;
                                             setExercises(newExercises);
                                         }}
                                         className="inputText"
-                                        placeholder="Exercise 1…"
+                                        placeholder={`Exercise ${i + 2}…`}
                                     />
                                 </td>
                             </tr>
-                            {exercises.slice(1).map((exercise, i) => (
-                                <tr key={i + 1}>
-                                    <td className="inputCell">
-                                        <input
-                                            value={exercise}
-                                            maxLength={20}
-                                            onChange={e => {
-                                                const newExercises = [...exercises];
-                                                newExercises[i + 1] = e.target.value;
-                                                setExercises(newExercises);
-                                            }}
-                                            className="inputText"
-                                            placeholder={`Exercise ${i + 2}…`}
-                                        />
-                                    </td>
-                                </tr>
-                            ))}
-                            <tr>
-                                <td colSpan={2} className="controlsCell">
-                                    <div className="SetControls">
-                                        <button className="addButton"
-                                            onClick={() => setExercises(prev => prev.length < 10 ? [...prev, ""] : prev)}>
-                                            Add Exercise
-                                        </button>
-                                        <button className="minusButton"
-                                            onClick={() => setExercises(prev => prev.length > 1 ? prev.slice(0, -1) : prev)}>
-                                            Delete Exercise
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td className='submitbtn' colSpan={2}>
-                                    <button onClick={newWorkout}>Submit</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                        ))}
+                        <tr>
+                            <td colSpan={4} className="controlsCell">
+                                <div className="SetControls">
+                                    <button className="addButton"
+                                        onClick={() => setExercises(prev => prev.length < 10 ? [...prev, ""] : prev)}>
+                                        Add Exercise
+                                    </button>
+                                    <button className="minusButton"
+                                        onClick={() => setExercises(prev => prev.length > 1 ? prev.slice(0, -1) : prev)}>
+                                        Delete Exercise
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className='submitbtn' colSpan={4}>
+                                <button onClick={newWorkout}>Submit</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-              
 
-              
-           
+
+
+
         </>
     );
 }
