@@ -564,7 +564,11 @@ input[type="date"]:focus {
 
 .card.login-card {
     margin: auto;
-    position: relative;
+
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 /* Login UI */
