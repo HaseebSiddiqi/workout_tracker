@@ -69,7 +69,7 @@ export default function Add_workouts( { selectedWorkout, onSuccess } ) {
 
     const addSets = () => {
         setNewWorkout(prevWorkout => {
-            if (prevWorkout.exercises[0].sets.length >= 4) return prevWorkout;
+            if (prevWorkout.exercises[0].sets.length >= 3) return prevWorkout;
             return {
                 ...prevWorkout,
 
@@ -101,7 +101,7 @@ export default function Add_workouts( { selectedWorkout, onSuccess } ) {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(newWorkout)
         });
-
+        setViewWorkouts(prev => [...prev, newWorkout]);
         setFeedback("Workout Added!");
 
         setTimeout(() => {
