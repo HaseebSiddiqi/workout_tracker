@@ -3,7 +3,7 @@ require("dotenv").config();
 const authMiddleware = require("./authMiddleware");
 
 const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
-const { DynamoDBDocumentClient, PutCommand, QueryCommand, DeleteCommand } = require("@aws-sdk/lib-dynamodb");
+const { DynamoDBDocumentClient, PutCommand, QueryCommand, DeleteCommand, UpdateCommand } = require("@aws-sdk/lib-dynamodb");
 
 
 const client = new DynamoDBClient({
@@ -191,3 +191,30 @@ app.delete("/workoutLogs/:workoutId", authMiddleware, async (req, res) => {
         res.status(500).json({ error: "Failed to delete workout entry" });
     }
 }); 
+
+app.patch("/workoutLogs/:workoutId", authMiddleware, async (req, res) => {
+    try {
+        const { workoutId } = req.params;
+        const username = req.user.username;
+        const updatedWorkout = req.body;
+
+      await db.send(
+        new PutCommand({
+            TableName: "WorkoutLogs",
+            Item:{
+                ...updatedWorkout,
+                username,
+                workoutId,
+            },
+
+        })
+    );
+    res.json({ success: true });
+    console.log({ workoutId }, "Updated Successfully");
+    }
+      catch(err){
+        console.error(err);
+        res.status(500).json({ error: "Failed to update workout entry" });
+
+      }
+    });
