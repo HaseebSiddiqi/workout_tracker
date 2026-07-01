@@ -170,17 +170,25 @@ export default function ViewWorkouts({refreshKey}) {
                                                             <div className="set-inputs">
                                                                 {isEditing ? (
                                                                     <>
-                                                                    <input value={editWorkouts.exercises[exerciseIndex].sets[i].weight ?? ""}
+                                                                    <input 
+                                                                    type ="number"
+                                                                    min="0"
+                                                                    max="999"
+                                                                    value={editWorkouts.exercises[exerciseIndex].sets[i].weight ?? ""}
                                                                     onChange={(e) =>{
                                                                         const copy = structuredClone(editWorkouts);
-                                                                        copy.exercises[exerciseIndex].sets[i].weight = e.target.value;
+                                                                        copy.exercises[exerciseIndex].sets[i].weight = Math.min(999, Math.max(0, Number(e.target.value)));
                                                                         setEditWorkouts(copy);
                                                                     }}
                                                                     />
-                                                                    <input value={editWorkouts.exercises[exerciseIndex].sets[i].reps ?? ""}
+                                                                    <input 
+                                                                    type ="number"
+                                                                    min="0"
+                                                                    max="999"
+                                                                    value={editWorkouts.exercises[exerciseIndex].sets[i].reps ?? ""}
                                                                     onChange={(e) =>{
                                                                         const copy = structuredClone(editWorkouts);
-                                                                        copy.exercises[exerciseIndex].sets[i].reps = e.target.value;
+                                                                        copy.exercises[exerciseIndex].sets[i].reps = Math.min(999, Math.max(0, Number(e.target.value)));
                                                                         setEditWorkouts(copy);
                                                                     }}
                                                                     />
@@ -203,7 +211,7 @@ export default function ViewWorkouts({refreshKey}) {
                                                  
                                                         <td rowSpan={w.exercises.length}>
                                                             {isEditing ? (
-                                                                <input 
+                                                                <textarea className="textarea"
                                                                     value={editWorkouts.notes}
                                                                     onChange={(e) => {
                                                                         const copy = structuredClone(editWorkouts);
