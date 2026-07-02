@@ -96,8 +96,11 @@ export default function Add_workouts({ selectedWorkout, onSuccess }) {
     }
 
     const submitTable = async () => {
-        if (!validSets(newWorkout.exercises.flatMap(ex => ex.sets))) {
-            setFeedback("Please fill sets in order");
+        if (!validateWorkout(newWorkout.exercises)) {
+            setTimeout(() => {
+                setFeedback("Please fill sets in order");
+            }, 2000);
+
             return;
         }
         await apiFetch("https://workouttracker-production-4d3e.up.railway.app/workoutLogs", {
@@ -118,6 +121,9 @@ export default function Add_workouts({ selectedWorkout, onSuccess }) {
     const isSetFilled = (set) => {
         return set.reps != null && set.reps !== "";
     }
+    const isExerciseEmpty = (exercise) => {
+        return exercise.sets.every(set => !isSetFilled(set));
+    };
     const validSets = (sets) => {
         for (let i = 0; i < sets.length; i++) {
             if (!isSetFilled(sets[i])) {
@@ -128,6 +134,14 @@ export default function Add_workouts({ selectedWorkout, onSuccess }) {
             }
         }
         return true;
+    };
+
+    const validateWorkout = (exercises) => {
+        return exercises.every(exercise => {
+            if (isExerciseEmpty(exercise)) return true;
+
+            return validSets(exercise.sets);
+        });
     };
     return (
         <>
