@@ -3,7 +3,7 @@ import Calendar from "react-calendar";
 import React from "react";
 import { apiFetch } from "./apiClient.js";
 
-export default function ViewWorkouts({refreshKey}) {
+export default function ViewWorkouts({ refreshKey }) {
 
 
     const [viewWorkouts, updateWorkouts] = useState([]);
@@ -41,12 +41,12 @@ export default function ViewWorkouts({refreshKey}) {
     const updateWorkout = async (workoutId) => {
         await apiFetch(`https://workouttracker-production-4d3e.up.railway.app/workoutLogs/${workoutId}`, {
             method: "PATCH",
-            headers: { "Content-Type": "application/json"},
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(editWorkouts)
         });
 
         updateWorkouts(prev =>
-            prev.map(w => 
+            prev.map(w =>
                 w.workoutId === workoutId ? editWorkouts : w
             )
         );
@@ -80,11 +80,11 @@ export default function ViewWorkouts({refreshKey}) {
     }
     return (
         <>
-            
-            {viewCalender ? ( <div> 
+
+            {viewCalender ? (<div>
                 <div className="calendar-container">
                     <Calendar
-                        view ="month"
+                        view="month"
                         minDetail="month"
                         maxDetail="month"
                         showFixedNumberOfWeeks={true}
@@ -106,109 +106,109 @@ export default function ViewWorkouts({refreshKey}) {
                         }
 
                     />
-                   
-                </div>  
-                        <div className="Calander bottom ">
-                                <div className="legend">
-                                    <p> <span className="orange-square"></span>  No Session </p> 
-                                    <p> <span className="blue-square"></span> Workout Logged  </p>
-                                    <p className="legend-hint">
-                                        Click blue days to view details
-                                    </p>
-                                </div>
-                        </div>
+
                 </div>
+                <div className="Calander bottom ">
+                    <div className="legend">
+                        <p> <span className="orange-square"></span>  No Session </p>
+                        <p> <span className="blue-square"></span> Workout Logged  </p>
+                        <p className="legend-hint">
+                            Click blue days to view details
+                        </p>
+                    </div>
+                </div>
+            </div>
 
             ) : (
                 <div>
-                <div className="table-container">
-                    <table className="addWorkoutTable" >
-                        <tbody>
+                    <div className="table-container">
+                        <table className="addWorkoutTable" >
+                            <tbody>
 
-                            <tr>
-                                <th className="spanrow" colSpan={99} >{currentDate?.toISOString().split("T")[0]}</th>
-                            </tr>
-                            {viewWorkouts
-                                .filter(w => w.date === currentDate?.toISOString().split("T")[0])
-                                .map((w, index, arr) => (
-                                    <React.Fragment key={w.workoutId}>
-                                        <tr>
-                                            <th>{w.workoutName}</th>
+                                <tr>
+                                    <th className="spanrow" colSpan={99} >{currentDate?.toISOString().split("T")[0]}</th>
+                                </tr>
+                                {viewWorkouts
+                                    .filter(w => w.date === currentDate?.toISOString().split("T")[0])
+                                    .map((w, index, arr) => (
+                                        <React.Fragment key={w.workoutId}>
+                                            <tr>
+                                                <th>{w.workoutName}</th>
 
-                                            {w.exercises[0].sets.map((set, i) => (
-                                                <th key={i}>
-                                                    <div key={i}>
-                                                        Set {i + 1}
-                                                    </div>
-                                                </th>
+                                                {w.exercises[0].sets.map((set, i) => (
+                                                    <th key={i}>
+                                                        <div key={i}>
+                                                            Set {i + 1}
+                                                        </div>
+                                                    </th>
 
-                                            ))}
-                                            <th> Notes</th>
+                                                ))}
+                                                <th> Notes</th>
 
 
-                                        </tr>
-                                        
-                                        {w.exercises?.map((exercise, exerciseIndex) => (
-                                            
-                                            <tr key={exerciseIndex}>
-                                                <td className="exercise-name-cell">
-                                                    <div className="exercise-name-wrapper">
-                                                        {exerciseIndex === 0 && <div className="set-labels-spacer">&nbsp;</div>}
-                                                        <div className="exercise-name-content">{exercise.name}</div>
-                                                    </div>
-                                                </td>
-                                               
-                                                {exercise.sets.map((set, i) => (
-                                                    <td className='Sets' key={i}>
-                                                        <div className="Sets-content">
-                                                            {exerciseIndex === 0 && (
-                                                                <div className="set-labels">
-                                                                    <span className="label-w">W</span>
-                                                                    <span className="label-r">R</span>
-                                                                </div>
-                                                            )}
-                                                            <div className="set-inputs">
-                                                                {isEditing ? (
-                                                                    <>
-                                                                    <input 
-                                                                    type ="number"
-                                                                    min="0"
-                                                                    max="999"
-                                                                    value={editWorkouts.exercises[exerciseIndex].sets[i].weight ?? ""}
-                                                                    onChange={(e) =>{
-                                                                        const copy = structuredClone(editWorkouts);
-                                                                        copy.exercises[exerciseIndex].sets[i].weight = Math.min(999, Math.max(0, Number(e.target.value)));
-                                                                        setEditWorkouts(copy);
-                                                                    }}
-                                                                    />
-                                                                    <input 
-                                                                    type ="number"
-                                                                    min="0"
-                                                                    max="999"
-                                                                    value={editWorkouts.exercises[exerciseIndex].sets[i].reps ?? ""}
-                                                                    onChange={(e) =>{
-                                                                        const copy = structuredClone(editWorkouts);
-                                                                        copy.exercises[exerciseIndex].sets[i].reps = Math.min(999, Math.max(0, Number(e.target.value)));
-                                                                        setEditWorkouts(copy);
-                                                                    }}
-                                                                    />
+                                            </tr>
 
-                                                                    </>
-                                                                ):(
-                                                                <>
-                                                                <div className='Weight'>{set.weight}</div>
-                                                                <div className='Reps'>{set.reps}</div>
-                                                                </>
-                                                                
-                                                                )}
+                                            {w.exercises?.map((exercise, exerciseIndex) => (
 
-                                                                
-                                                            </div>
+                                                <tr key={exerciseIndex}>
+                                                    <td className="exercise-name-cell">
+                                                        <div className="exercise-name-wrapper">
+                                                            {exerciseIndex === 0 && <div className="set-labels-spacer">&nbsp;</div>}
+                                                            <div className="exercise-name-content">{exercise.name}</div>
                                                         </div>
                                                     </td>
-                                                ))}
-                                                {exerciseIndex === 0 && (
-                                                 
+
+                                                    {exercise.sets.map((set, i) => (
+                                                        <td className='Sets' key={i}>
+                                                            <div className="Sets-content">
+                                                                {exerciseIndex === 0 && (
+                                                                    <div className="set-labels">
+                                                                        <span className="label-w">W</span>
+                                                                        <span className="label-r">R</span>
+                                                                    </div>
+                                                                )}
+                                                                <div className="set-inputs">
+                                                                    {isEditing ? (
+                                                                        <>
+                                                                            <input
+                                                                                type="number"
+                                                                                min="0"
+                                                                                max="999"
+                                                                                value={editWorkouts.exercises[exerciseIndex].sets[i].weight ?? ""}
+                                                                                onChange={(e) => {
+                                                                                    const copy = structuredClone(editWorkouts);
+                                                                                    copy.exercises[exerciseIndex].sets[i].weight = Math.min(999, Math.max(0, Number(e.target.value)));
+                                                                                    setEditWorkouts(copy);
+                                                                                }}
+                                                                            />
+                                                                            <input
+                                                                                type="number"
+                                                                                min="0"
+                                                                                max="999"
+                                                                                value={editWorkouts.exercises[exerciseIndex].sets[i].reps ?? ""}
+                                                                                onChange={(e) => {
+                                                                                    const copy = structuredClone(editWorkouts);
+                                                                                    copy.exercises[exerciseIndex].sets[i].reps = Math.min(999, Math.max(0, Number(e.target.value)));
+                                                                                    setEditWorkouts(copy);
+                                                                                }}
+                                                                            />
+
+                                                                        </>
+                                                                    ) : (
+                                                                        <>
+                                                                            <div className='Weight'>{set.weight}</div>
+                                                                            <div className='Reps'>{set.reps}</div>
+                                                                        </>
+
+                                                                    )}
+
+
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    ))}
+                                                    {exerciseIndex === 0 && (
+
                                                         <td rowSpan={w.exercises.length}>
                                                             {isEditing ? (
                                                                 <textarea className="textarea"
@@ -217,64 +217,65 @@ export default function ViewWorkouts({refreshKey}) {
                                                                         const copy = structuredClone(editWorkouts);
                                                                         copy.notes = e.target.value;
                                                                         setEditWorkouts(copy);
-                                                                    }}/>
-                                                            ) : (  w.notes
-                                                                 
+                                                                    }} />
+                                                            ) : (w.notes
+
                                                             )}
-                                                            </td>
-                                                    
-                                                )}
-                                                
+                                                        </td>
 
+                                                    )}
+
+
+
+                                                </tr>
+                                            ))}
+
+                                            <tr>
+                                                <td colSpan={99}>
+                                                    <div className='SetControls'>
+                                                        <button className="addButton" onClick={() => {
+                                                            if (!isEditing) {
+
+                                                                setEditWorkouts(structuredClone(w));
+                                                                setIsEditing(true);
+                                                            } else {
+                                                                updateWorkout(w.workoutId);
+
+                                                            }
+                                                        }}>
+                                                            {isEditing ? "Save" : "Edit"}
+
+                                                        </button>
+
+                                                        <button className="minusButton" onClick={() => {
+                                                            const confirmed = window.confirm("Delete this workout?");
+                                                            if (confirmed) {
+                                                                handleDelete(w.workoutId);
+                                                            }
+                                                        }} > Delete
+
+                                                        </button>
+                                                    </div>
+                                                </td>
 
                                             </tr>
-                                        ))}
-
-                                        <tr>
-                                            <td colSpan={99}> 
-                                           <div className='SetControls'>
-                                            <button className="addButton" onClick={()=> {if (!isEditing){
-
-                                                setEditWorkouts(structuredClone(w));
-                                                setIsEditing(true);
-                                            } else 
-                                                {updateWorkout(w.workoutId);
-                                                
-                                            }
-                                            }}>
-                                                {isEditing ? "Save" : "Edit"}
-                                                
-                                            </button>
-
-                                            <button className="minusButton" onClick={() => {
-                                                    const confirmed = window.confirm("Delete this workout?");
-                                                    if (confirmed) {
-                                                        handleDelete(w.workoutId);
-                                                    }
-                                                }} > Delete
-                                                
-                                            </button>
-                                           </div>
-                                           </td>
-                                            
-                                        </tr>
-                                        {index < arr.length - 1 && (
-                                            <tr className="workout-spacer-row">
-                                                <td colSpan={12}></td>
-                                            </tr>
-                                        )}
-                                    </React.Fragment>
+                                            {index < arr.length - 1 && (
+                                                <tr className="workout-spacer-row">
+                                                    <td colSpan={12}></td>
+                                                </tr>
+                                            )}
+                                        </React.Fragment>
 
 
-                                ))}
+                                    ))}
 
 
-                        </tbody>
-                    </table>
-                    
-                </div>
+                            </tbody>
+                        </table>
 
-                <button className="my-button" onClick={() => {updateCalender(true); setIsEditing(false);}} >Back to Calendar</button>
+                    </div>
+
+                    <button className="my-button" onClick={() => { updateCalender(true); setIsEditing(false); }} >Back to Calendar</button>
                 </div>
 
 
@@ -283,7 +284,7 @@ export default function ViewWorkouts({refreshKey}) {
 
             }
             {feedback && <h2>{feedback}</h2>}
-            
+
 
 
 

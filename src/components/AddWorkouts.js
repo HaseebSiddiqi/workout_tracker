@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { apiFetch } from "./apiClient.js";
 
 
-export default function Add_workouts( { selectedWorkout, onSuccess } ) {
+export default function Add_workouts({ selectedWorkout, onSuccess }) {
 
 
 
@@ -20,7 +20,7 @@ export default function Add_workouts( { selectedWorkout, onSuccess } ) {
 
     useEffect(() => {
         if (!selectedWorkout) return;
-        
+
 
         const prev = viewWorkouts
             .filter(w => w.workoutName === selectedWorkout.workoutName)
@@ -50,8 +50,8 @@ export default function Add_workouts( { selectedWorkout, onSuccess } ) {
                     }))
                 };
             })
-           
-        }) ;
+
+        });
     }, [selectedWorkout, viewWorkouts]);
 
     useEffect(() => {
@@ -96,6 +96,10 @@ export default function Add_workouts( { selectedWorkout, onSuccess } ) {
     }
 
     const submitTable = async () => {
+        if (!validSets(newWorkout.exercises.flatMap(ex => ex.sets))) {
+            setFeedback("Please fill sets in order");
+            return;
+        }
         await apiFetch("https://workouttracker-production-4d3e.up.railway.app/workoutLogs", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -111,11 +115,24 @@ export default function Add_workouts( { selectedWorkout, onSuccess } ) {
         }, 2000);
     }
 
-
+    const isSetFilled = (set) => {
+        return set.reps != null && set.reps !== "";
+    }
+    const validSets = (sets) => {
+        for (let i = 0; i < sets.length; i++) {
+            if (!isSetFilled(sets[i])) {
+                for (let j = i + 1; j < sets.length; j++) {
+                    if (isSetFilled(sets[j])) return false;
+                }
+                break;
+            }
+        }
+        return true;
+    };
     return (
         <>
             <div >
-               
+
                 {feedback && <h2>{feedback}</h2>}
                 {newWorkout && (
                     <div className="table-container">
@@ -189,7 +206,7 @@ export default function Add_workouts( { selectedWorkout, onSuccess } ) {
                                                                                                         ? ""
                                                                                                         : Math.min(999,
                                                                                                             Math.max(0, Number(e.target.value))
-                                                                                                            )
+                                                                                                        )
                                                                                                 }
                                                                                                 : s
                                                                                         )
@@ -222,10 +239,10 @@ export default function Add_workouts( { selectedWorkout, onSuccess } ) {
                                                                                                         ? ""
                                                                                                         : Math.min(999,
                                                                                                             Math.max(0, Number(e.target.value))
-                                                                                                            ) 
+                                                                                                        )
                                                                                                 }
-                                                                                                        
-                                                                                                
+
+
                                                                                                 : s
                                                                                         )
                                                                                     }
@@ -242,7 +259,7 @@ export default function Add_workouts( { selectedWorkout, onSuccess } ) {
                                         })}
                                         {i === 0 && (
                                             <td className="notes" rowSpan={newWorkout.exercises.length}>
-                                                <textarea className="textarea" placeholder={ latestWorkout?.notes ?? "Workout notes..."} value={newWorkout.notes} onChange={e => setNewWorkout({ ...newWorkout, notes: e.target.value })} />
+                                                <textarea className="textarea" placeholder={latestWorkout?.notes ?? "Workout notes..."} value={newWorkout.notes} onChange={e => setNewWorkout({ ...newWorkout, notes: e.target.value })} />
                                             </td>
                                         )}
 
@@ -265,7 +282,7 @@ export default function Add_workouts( { selectedWorkout, onSuccess } ) {
                                 </tr>
                             </tbody>
                         </table>
-                        
+
                     </div>
                 )}
 
