@@ -63,7 +63,7 @@ export default function Add_workouts({ selectedWorkout, onSuccess }) {
         };
 
         fetchWorkouts();
-    }, []);
+    }, [selectedWorkout]);
 
 
 
@@ -97,8 +97,10 @@ export default function Add_workouts({ selectedWorkout, onSuccess }) {
 
     const submitTable = async () => {
         if (!validateWorkout(newWorkout.exercises)) {
+            setFeedback("Please fill sets in order");
+
             setTimeout(() => {
-                setFeedback("Please fill sets in order");
+                setFeedback("");
             }, 2000);
 
             return;
