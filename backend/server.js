@@ -4,7 +4,7 @@ const authMiddleware = require("./authMiddleware");
 
 const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
 const { DynamoDBDocumentClient, PutCommand, QueryCommand, DeleteCommand, UpdateCommand } = require("@aws-sdk/lib-dynamodb");
-
+const rateLimit = require("express-rate-limit");
 
 const client = new DynamoDBClient({
     region: process.env.AWS_REGION,
@@ -26,10 +26,21 @@ const app = express();
 
 const PORT = process.env.PORT || 5000;
 
+const apiLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 200,
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+
 app.use(express.json());
 //Allow requests from the frontend
-app.use(cors());
+app.use(cors({
+    origin: "https://muscleup.live",
+    credentials: true
+}));
 
+app.use(apiLimiter);
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
@@ -190,7 +201,7 @@ app.delete("/workoutLogs/:workoutId", authMiddleware, async (req, res) => {
         console.error(err);
         res.status(500).json({ error: "Failed to delete workout entry" });
     }
-}); 
+});
 
 app.patch("/workoutLogs/:workoutId", authMiddleware, async (req, res) => {
     try {
@@ -198,23 +209,23 @@ app.patch("/workoutLogs/:workoutId", authMiddleware, async (req, res) => {
         const username = req.user.username;
         const updatedWorkout = req.body;
 
-      await db.send(
-        new PutCommand({
-            TableName: "WorkoutLogs",
-            Item:{
-                ...updatedWorkout,
-                username,
-                workoutId,
-            },
+        await db.send(
+            new PutCommand({
+                TableName: "WorkoutLogs",
+                Item: {
+                    ...updatedWorkout,
+                    username,
+                    workoutId,
+                },
 
-        })
-    );
-    res.json({ success: true });
-    console.log({ workoutId }, "Updated Successfully");
+            })
+        );
+        res.json({ success: true });
+        console.log({ workoutId }, "Updated Successfully");
     }
-      catch(err){
+    catch (err) {
         console.error(err);
         res.status(500).json({ error: "Failed to update workout entry" });
 
-      }
-    });
+    }
+});
